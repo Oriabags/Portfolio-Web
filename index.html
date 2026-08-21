@@ -1,0 +1,1097 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lara Marinac — Portfolio</title>
+<meta name="description" content="Portfolio of Lara Marinac.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;1,600&family=Archivo+Black&display=swap" rel="stylesheet">
+
+<style>
+  /* ═══════════════════════════════════════════════════════════
+     ALFARN — no está en Google Fonts, hay que subir el archivo.
+     1. Convertí tu .otf a .woff2 en cloudconvert.com o transfonter.org
+     2. Subí alfarn.woff2 al repo, al lado del index.html
+     3. Listo. Si falta, cae en Archivo Black y no se rompe nada.
+     ═══════════════════════════════════════════════════════════ */
+  @font-face {
+    font-family: 'Alfarn';
+    src: url('alfarn.woff2') format('woff2'),
+         url('alfarn.otf')   format('opentype');
+    font-weight: 400 900;
+    font-display: swap;
+  }
+
+  :root {
+    --cream:  #FBF2DE;
+    --orange: #DD5A31;
+    --blue:   #2A52C4;
+    --green:  #388B4F;
+    --amber:  #F0B85F;
+    --ink:    #2B1A10;
+
+    --display: 'Alfarn', 'Archivo Black', 'Arial Black', sans-serif;
+    --body:    'Montserrat', system-ui, sans-serif;
+
+    --rule: 2px;
+    --gutter: clamp(1rem, 3.5vw, 2.5rem);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--cream);
+    color: var(--ink);
+    font-family: var(--body);
+    font-size: clamp(0.9rem, 0.85rem + 0.2vw, 1rem);
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  a { color: inherit; }
+  :focus-visible { outline: 3px solid var(--blue); outline-offset: 3px; }
+
+  .wrap { max-width: 82rem; margin-inline: auto; padding-inline: var(--gutter); }
+
+  .shape { display: block; width: 100%; height: 100%; fill: currentColor; overflow: visible; }
+
+  /* ── Navegación ─────────────────────────────────── */
+  .nav {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.35rem;
+    padding-block: 1.25rem;
+  }
+  .nav .spacer { flex: 1; }
+
+  .nav a {
+    display: grid;
+    justify-items: center;
+    gap: 0.35rem;
+    padding: 0.55rem 0.8rem 0.5rem;
+    text-decoration: none;
+    color: var(--blue);
+    transition: color 0.18s ease;
+  }
+  .nav a:hover, .nav a:focus-visible { color: var(--orange); }
+  /* página actual: subrayado en la etiqueta, sin recuadro */
+  .nav a[aria-current="page"] span { border-bottom: 2px solid currentColor; padding-bottom: 2px; }
+
+  .nav svg { width: 1.4rem; height: 1.4rem; stroke: currentColor; stroke-width: 1.7; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+  .nav span { font-size: 0.6rem; font-weight: 700; letter-spacing: 0.06em; }
+
+  /* ── Nombre ─────────────────────────────────────── */
+  .hero { padding-block: clamp(2.5rem, 7vw, 5rem) 0; }
+
+  .wordmark {
+    /* Grilla de 2 columnas: MARINAC arranca exacto donde termina LARA,
+       sin depender del ancho de la tipografía. row-gap regula el aire vertical. */
+    display: grid;
+    grid-template-columns: max-content max-content;
+    justify-content: center;
+    row-gap: 0.22em;
+    max-width: 100%;
+    font-family: var(--display);
+    font-weight: 400;
+    font-size: clamp(2.4rem, 7.2vw, 5.2rem);
+    line-height: 0.92;
+    letter-spacing: 0.005em;
+    color: var(--orange);
+    text-transform: uppercase;
+  }
+  .wm-line { position: relative; display: inline-block; }
+  .wm-a { grid-area: 1 / 1; }
+  /* Compensa el margen lateral propio de los glifos, para que MARINAC
+     arranque pegado a LARA. Si cambiás de tipografía, ajustá este número. */
+  .wm-b { grid-area: 2 / 2; margin-left: -0.09em; }
+
+  /* ═══ Letra achicada dentro del nombre ═══
+     Ajustado con la tipografía de reserva. Cuando cargues Alfarn,
+     si la N no alinea arriba tocá el "top" de .wm-sm.up;
+     si los símbolos quedan pegados tocá .wm-star bottom / .wm-wave top.
+     ═══ */
+  .wm-sm { font-size: 0.72em; position: relative; display: inline-block; }
+  .wm-sm.up { top: -0.30em; }   /* sube la N para que su techo alinee con el resto */
+
+  /* Rótulo bajo el nombre. Va en la fila 2 columna 1, que estaba vacía. */
+  .wm-role {
+    grid-area: 2 / 1;
+    align-self: start;
+    justify-self: start;
+    /* OJO: este margen está en em del PROPIO rótulo (que es chico),
+       no del nombre. Por eso el número es grande. Escala bien igual. */
+    margin-top: -1.01em;
+    margin-left: 0.27em;
+    font-family: var(--body);
+    font-style: italic;
+    font-weight: 600;
+    font-size: 0.190em;
+    letter-spacing: 0.012em;
+    line-height: 1;
+    text-transform: uppercase;
+    color: var(--orange);
+    white-space: nowrap;
+  }
+
+  .wm-deco {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    pointer-events: none;
+  }
+  .wm-star { bottom: 0.97em; width: 0.40em; height: 0.40em; color: var(--green); }
+  .wm-wave { top: 0.94em; width: 0.72em; height: 0.72em; color: var(--blue); }
+
+  /* ── Grilla ─────────────────────────────────────── */
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+    border-top: var(--rule) solid var(--orange);
+    border-left: var(--rule) solid var(--orange);
+    max-width: 44rem;
+    margin: clamp(2.5rem, 7vw, 4.5rem) auto 0;
+  }
+  .cell {
+    aspect-ratio: 1;
+    border-right: var(--rule) solid var(--orange);
+    border-bottom: var(--rule) solid var(--orange);
+    display: grid;
+    place-items: center;
+    padding: 18%;
+  }
+  .cell .word {
+    font-family: var(--display);
+    font-size: clamp(0.85rem, 2.2vw, 1.5rem);
+    color: var(--blue);
+    letter-spacing: 0.01em;
+  }
+  .cell .art { width: 62%; aspect-ratio: 1; height: auto; }
+  .cell .art.big { width: 88%; }
+
+  /* ── Secciones ──────────────────────────────────── */
+  section { padding-block: clamp(3rem, 7vw, 5rem); }
+
+  .sec-head {
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+    padding-bottom: 1.1rem;
+    border-bottom: var(--rule) solid var(--orange);
+    margin-bottom: clamp(2rem, 5vw, 3.5rem);
+  }
+  .sec-head h2 {
+    font-family: var(--display);
+    font-weight: 400;
+    font-size: clamp(1.6rem, 5vw, 3.2rem);
+    color: var(--orange);
+    text-transform: uppercase;
+    line-height: 1;
+  }
+  .sec-head .mark { width: clamp(1.5rem, 3.5vw, 2.4rem); aspect-ratio: 1; flex: none; }
+  .sec-head .count {
+    margin-left: auto;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    color: var(--blue);
+  }
+
+  /* ── Portfolio ──────────────────────────────────── */
+  .projects {
+    display: grid;
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+    border-top: var(--rule) solid var(--orange);
+    border-left: var(--rule) solid var(--orange);
+  }
+  .projects > * {
+    border-right: var(--rule) solid var(--orange);
+    border-bottom: var(--rule) solid var(--orange);
+  }
+
+  .proj {
+    grid-column: span 3;
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background 0.2s ease, color 0.2s ease;
+  }
+  .proj-thumb {
+    display: block;
+    aspect-ratio: 1.414;
+    overflow: hidden;
+    border-bottom: var(--rule) solid var(--orange);
+    background: #fff;
+  }
+  .proj-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .proj-meta {
+    display: flex; flex-direction: column; gap: 0.9rem;
+    padding: clamp(0.9rem, 2vw, 1.4rem);
+    flex: 1;
+  }
+  .proj-count {
+    font-size: 0.62rem; font-weight: 700; letter-spacing: 0.1em;
+    color: var(--blue); border: 2px solid var(--blue);
+    border-radius: 999px; padding: 0.1rem 0.6rem; white-space: nowrap;
+    align-self: flex-start; margin-top: auto;
+  }
+  .proj:hover .proj-count { color: var(--cream); border-color: var(--cream); }
+  .proj:hover, .proj:focus-visible { background: var(--orange); color: var(--cream); }
+
+  .proj-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; }
+  .proj-no { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.12em; color: var(--blue); }
+  .proj:hover .proj-no, .proj:hover .proj-tag { color: var(--cream); }
+  .proj-icon { width: 1.5rem; aspect-ratio: 1; flex: none; }
+
+  .proj-title {
+    font-family: var(--display);
+    font-weight: 400;
+    font-size: clamp(1.1rem, 2.6vw, 1.7rem);
+    line-height: 1.05;
+    color: var(--orange);
+    text-transform: uppercase;
+  }
+  .proj:hover .proj-title { color: var(--cream); }
+  .proj-tag { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.05em; color: var(--blue); margin-top: 0.4rem; display: block; }
+
+  .filler { display: grid; place-items: center; padding: 22%; }
+  .filler .art { width: 72%; aspect-ratio: 1; }
+
+  /* ── Visor de imágenes ─────────────────────────── */
+  .lb[hidden] { display: none; }
+  .lb {
+    position: fixed; inset: 0; z-index: 90;
+    background: rgba(43, 26, 16, 0.93);
+    display: grid; place-items: center;
+    padding: clamp(2.5rem, 7vw, 4rem) clamp(0.75rem, 4vw, 4.5rem);
+  }
+  .lb-fig { margin: 0; display: grid; gap: 0.75rem; justify-items: center; max-height: 100%; }
+  .lb-fig img {
+    max-width: 100%; max-height: calc(100vh - 9rem);
+    object-fit: contain; display: block;
+    background: #fff;
+  }
+  .lb-cap {
+    font-size: 0.74rem; font-weight: 600; letter-spacing: 0.05em;
+    color: var(--cream); text-align: center; line-height: 1.5;
+  }
+  .lb-cap b { color: var(--amber); font-weight: 700; }
+
+  .lb button {
+    position: absolute;
+    width: 44px; height: 44px;
+    display: grid; place-items: center;
+    border: none; border-radius: 999px;
+    background: var(--orange); color: var(--cream);
+    cursor: pointer; font-family: var(--body); font-size: 1.1rem; line-height: 1;
+    transition: background 0.18s ease, transform 0.18s ease;
+  }
+  .lb button:hover { background: var(--blue); }
+  .lb button:active { transform: scale(0.93); }
+  .lb button[disabled] { opacity: 0; pointer-events: none; }
+
+  .lb-close { top: clamp(0.6rem, 2vw, 1.2rem); right: clamp(0.6rem, 2vw, 1.2rem); }
+  .lb-prev  { left: clamp(0.4rem, 1.5vw, 1.2rem); top: 50%; transform: translateY(-50%); }
+  .lb-next  { right: clamp(0.4rem, 1.5vw, 1.2rem); top: 50%; transform: translateY(-50%); }
+  .lb-prev:active, .lb-next:active { transform: translateY(-50%) scale(0.93); }
+
+  /* ── Experiencia laboral: tres tarjetas por fila ── */
+  .projects.tercios .proj { grid-column: span 3; }
+  .filler.ancho { grid-column: span 3; }
+  /* la forma se mide sobre la celda, así que en la ancha hay que acotarla */
+  .filler.ancho .art { width: 24%; max-width: 8rem; }
+  .projects.tercios .proj-thumb { aspect-ratio: 0.893; }
+
+  .lb-link {
+    display: inline-block;
+    margin-top: 0.35rem;
+    padding: 0.4rem 1.1rem;
+    border: 2px solid var(--amber);
+    border-radius: 999px;
+    color: var(--amber);
+    font-family: var(--body);
+    font-size: 0.72rem; font-weight: 700; letter-spacing: 0.08em;
+    text-decoration: none;
+    transition: background 0.18s ease, color 0.18s ease;
+  }
+  .lb-link:hover { background: var(--amber); color: var(--ink); }
+  .lb-link[hidden] { display: none; }
+
+  /* ── About ──────────────────────────────────────── */
+  .about {
+    display: grid;
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+    border-top: var(--rule) solid var(--orange);
+    border-left: var(--rule) solid var(--orange);
+  }
+  .about > * {
+    border-right: var(--rule) solid var(--orange);
+    border-bottom: var(--rule) solid var(--orange);
+  }
+
+  .photo {
+    grid-column: span 2;
+    grid-row: span 2;
+    display: grid;
+    place-items: center;
+    min-height: 14rem;
+    overflow: hidden;
+  }
+  .photo img {
+    width: 100%; height: 100%;
+    object-fit: contain;
+    display: block;
+    padding: 0.6rem;
+    /* ═══ Tu foto: subila como retrato.jpg y descomentá ═══
+    background-image: url('img/retrato.jpg');
+    background-size: cover;
+    background-position: center;
+    ═══ */
+  }
+
+  .bio { grid-column: span 4; grid-row: span 2; padding: clamp(1.25rem, 3vw, 2.25rem); }
+  .bio p + p { margin-top: 0.9rem; }
+  .bio .lede {
+    font-family: var(--display);
+    font-weight: 400;
+    font-size: clamp(1.05rem, 2.4vw, 1.6rem);
+    line-height: 1.15;
+    color: var(--orange);
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+  }
+
+  .skills { grid-column: span 7; padding: clamp(1.25rem, 3vw, 2.25rem); display: flex; flex-wrap: wrap; gap: 0.45rem; align-content: center; }
+  .chip {
+    border: var(--rule) solid var(--blue);
+    border-radius: 999px;
+    padding: 0.28rem 0.85rem;
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: var(--blue);
+  }
+
+  /* Bloques de datos (formación, idiomas) */
+  .info { padding: clamp(1.25rem, 3vw, 2.25rem); }
+  .info-edu  { grid-column: span 4; }
+  .info-lang { grid-column: span 3; }
+
+  .info h3 {
+    font-size: 0.66rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    color: var(--blue);
+    margin-bottom: 1rem;
+  }
+  .entry { padding-block: 0.7rem; border-top: var(--rule) solid var(--line, #F0DCC0); }
+  .entry:first-of-type { border-top: none; padding-top: 0; }
+  .entry b {
+    display: block;
+    font-family: var(--display);
+    font-weight: 400;
+    font-size: clamp(0.85rem, 1.7vw, 1.05rem);
+    line-height: 1.15;
+    color: var(--orange);
+    text-transform: uppercase;
+    margin-bottom: 0.2rem;
+  }
+  .entry span { font-size: 0.78rem; line-height: 1.5; display: block; }
+
+  .lang { display: flex; align-items: center; gap: 0.7rem; padding-block: 0.55rem; }
+  .lang em {
+    font-style: normal;
+    font-family: var(--display);
+    font-size: 0.95rem;
+    color: var(--orange);
+    text-transform: uppercase;
+    flex: none;
+    min-width: 5.2rem;
+  }
+  .lang i { flex: 1; height: 7px; background: rgba(221,90,49,0.18); display: block; }
+  .lang i::before { content: ""; display: block; height: 100%; background: var(--orange); width: var(--n, 100%); }
+
+  .square { aspect-ratio: 1; display: grid; place-items: center; padding: 24%; }
+  .square .art { width: 70%; aspect-ratio: 1; }
+
+  /* ── Contacto ───────────────────────────────────── */
+  .contact-inner { text-align: center; padding-block: clamp(1rem, 4vw, 2.5rem); }
+  .mail {
+    font-family: var(--display);
+    font-weight: 400;
+    font-size: clamp(1.35rem, 6vw, 4rem);
+    color: var(--blue);
+    text-decoration: none;
+    text-transform: lowercase;
+    word-break: break-word;
+    line-height: 1.05;
+    display: inline-block;
+  }
+  .mail:hover { color: var(--orange); }
+  .contact-note { margin-top: 1.25rem; font-size: 0.8rem; font-weight: 600; letter-spacing: 0.05em; color: var(--orange); }
+
+  .socials { display: flex; flex-wrap: wrap; justify-content: center; gap: 1.5rem; margin-top: 2.25rem; }
+  .socials a { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.08em; color: var(--blue); text-decoration: none; }
+  .socials a:hover { color: var(--orange); text-decoration: underline; }
+
+  .strip {
+    display: grid;
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+    border-top: var(--rule) solid var(--orange);
+    border-left: var(--rule) solid var(--orange);
+    margin-top: clamp(2.5rem, 6vw, 4rem);
+  }
+  .strip .cell { padding: 26%; }
+
+  footer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 0.75rem;
+    padding-block: 1.75rem 2.5rem;
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    color: var(--orange);
+  }
+
+  /* ── Responsive ─────────────────────────────────── */
+  @media (max-width: 52rem) {
+    .projects { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    .proj     { grid-column: span 4; }
+    .filler.hide-sm { display: none; }
+
+    /* About pasa a 2 columnas. Hay que anular también el span de FILAS
+       del escritorio, si no la foto y la bio se pisan. */
+    .about { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .photo { grid-column: span 2; grid-row: auto; aspect-ratio: 1; min-height: 0; }
+    .bio, .skills, .info-edu, .info-lang { grid-column: span 2; grid-row: auto; }
+    .about .square { display: none; }
+  }
+
+  @media (max-width: 34rem) {
+    .grid, .strip { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    .grid .cell.sm-off { display: none; }
+    .strip .cell:nth-child(n+5) { display: none; }
+    .nav { flex-wrap: wrap; }
+    .nav .spacer { flex-basis: 100%; height: 0; }
+    .wordmark { grid-template-columns: max-content; row-gap: 0.10em; }
+    .wm-a    { grid-area: 1 / 1; }
+    .wm-role { grid-area: 2 / 1; justify-self: center; margin-top: 0.1em; }
+    .wm-b    { grid-area: 3 / 1; margin-left: 0; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { transition: none !important; animation: none !important; }
+  }
+</style>
+</head>
+
+<body>
+
+<!-- ═══ BIBLIOTECA DE FORMAS ═══════════════════════════════════
+     Usalas donde quieras con:
+       <svg class="shape" style="color:var(--green)"><use href="#s-daisy"/></svg>
+     Nombres: starburst · star-6 · scallop · scallop-ring · spike-star
+              daisy · concave-star · sparkle · asterisk · wavy-column
+              squiggle · arc · clover
+     ═══════════════════════════════════════════════════════════ -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+  <symbol id="s-starburst" viewBox="-50 -50 100 100"><path d="M 0.00 -46.00 L 4.02 -12.36 L 27.04 -37.21 L 10.52 -7.64 L 43.75 -14.21 L 13.00 0.00 L 43.75 14.21 L 10.52 7.64 L 27.04 37.21 L 4.02 12.36 L 0.00 46.00 L -4.02 12.36 L -27.04 37.21 L -10.52 7.64 L -43.75 14.21 L -13.00 0.00 L -43.75 -14.21 L -10.52 -7.64 L -27.04 -37.21 L -4.02 -12.36 Z" fill="currentColor"/></symbol>
+  <symbol id="s-star-6" viewBox="-50 -50 100 100"><path d="M 0.00 -46.00 L 9.50 -16.45 L 39.84 -23.00 L 19.00 0.00 L 39.84 23.00 L 9.50 16.45 L 0.00 46.00 L -9.50 16.45 L -39.84 23.00 L -19.00 0.00 L -39.84 -23.00 L -9.50 -16.45 Z" fill="currentColor"/></symbol>
+  <symbol id="s-scallop" viewBox="-50 -50 100 100"><path d="M 44.00 0.00 A 10.53 10.53 0 0 1 38.96 20.45 A 10.53 10.53 0 0 1 24.99 36.21 A 10.53 10.53 0 0 1 5.30 43.68 A 10.53 10.53 0 0 1 -15.60 41.14 A 10.53 10.53 0 0 1 -32.93 29.18 A 10.53 10.53 0 0 1 -42.72 10.53 A 10.53 10.53 0 0 1 -42.72 -10.53 A 10.53 10.53 0 0 1 -32.93 -29.18 A 10.53 10.53 0 0 1 -15.60 -41.14 A 10.53 10.53 0 0 1 5.30 -43.68 A 10.53 10.53 0 0 1 24.99 -36.21 A 10.53 10.53 0 0 1 38.96 -20.45 A 10.53 10.53 0 0 1 44.00 0.00 Z" fill="currentColor"/></symbol>
+  <symbol id="s-scallop-ring" viewBox="-50 -50 100 100"><path d="M 46.00 0.00 A 10.24 10.24 0 0 1 41.44 19.96 A 10.24 10.24 0 0 1 28.68 35.96 A 10.24 10.24 0 0 1 10.24 44.85 A 10.24 10.24 0 0 1 -10.24 44.85 A 10.24 10.24 0 0 1 -28.68 35.96 A 10.24 10.24 0 0 1 -41.44 19.96 A 10.24 10.24 0 0 1 -46.00 0.00 A 10.24 10.24 0 0 1 -41.44 -19.96 A 10.24 10.24 0 0 1 -28.68 -35.96 A 10.24 10.24 0 0 1 -10.24 -44.85 A 10.24 10.24 0 0 1 10.24 -44.85 A 10.24 10.24 0 0 1 28.68 -35.96 A 10.24 10.24 0 0 1 41.44 -19.96 A 10.24 10.24 0 0 1 46.00 0.00 Z M 17.55 7.27 A 7.27 7.27 0 0 1 7.27 17.55 A 7.27 7.27 0 0 1 -7.27 17.55 A 7.27 7.27 0 0 1 -17.55 7.27 A 7.27 7.27 0 0 1 -17.55 -7.27 A 7.27 7.27 0 0 1 -7.27 -17.55 A 7.27 7.27 0 0 1 7.27 -17.55 A 7.27 7.27 0 0 1 17.55 -7.27 A 7.27 7.27 0 0 1 17.55 7.27 Z" fill="currentColor" fill-rule="evenodd"/></symbol>
+  <symbol id="s-spike-star" viewBox="-50 -50 100 100"><path d="M 0.00 -46.00 L 6.68 -29.25 L 19.96 -41.44 L 18.70 -23.45 L 35.96 -28.68 L 27.03 -13.02 L 44.85 -10.24 L 30.00 0.00 L 44.85 10.24 L 27.03 13.02 L 35.96 28.68 L 18.70 23.45 L 19.96 41.44 L 6.68 29.25 L 0.00 46.00 L -6.68 29.25 L -19.96 41.44 L -18.70 23.45 L -35.96 28.68 L -27.03 13.02 L -44.85 10.24 L -30.00 0.00 L -44.85 -10.24 L -27.03 -13.02 L -35.96 -28.68 L -18.70 -23.45 L -19.96 -41.44 L -6.68 -29.25 Z" fill="currentColor"/></symbol>
+  <symbol id="s-daisy" viewBox="-50 -50 100 100"><path d="M 0 0 C -9.51 -26.89 -8.47 -44.75 0.00 -46.00 C 8.47 -44.75 9.51 -26.89 0 0 Z M 0 0 C 10.00 -26.71 22.28 -39.72 29.57 -35.24 C 35.25 -28.84 24.57 -14.48 0 0 Z M 0 0 C 24.83 -14.04 42.60 -16.11 45.30 -7.99 C 45.54 0.57 28.13 4.70 0 0 Z M 0 0 C 28.04 5.21 42.98 15.04 39.84 23.00 C 34.52 29.71 18.53 21.68 0 0 Z M 0 0 C 18.13 22.01 23.26 39.15 15.73 43.23 C 7.35 44.94 0.26 28.52 0 0 Z M 0 0 C -0.26 28.52 -7.35 44.94 -15.73 43.23 C -23.26 39.15 -18.13 22.01 0 0 Z M 0 0 C -18.53 21.68 -34.52 29.71 -39.84 23.00 C -42.98 15.04 -28.04 5.21 0 0 Z M 0 0 C -28.13 4.70 -45.54 0.57 -45.30 -7.99 C -42.60 -16.11 -24.83 -14.04 0 0 Z M 0 0 C -24.57 -14.48 -35.25 -28.84 -29.57 -35.24 C -22.28 -39.72 -10.00 -26.71 0 0 Z" fill="currentColor"/></symbol>
+  <symbol id="s-concave-star" viewBox="-50 -50 100 100"><path d="M 0.00 -45.00 A 36.00 36.00 0 0 0 35.18 -28.06 A 36.00 36.00 0 0 0 43.87 10.01 A 36.00 36.00 0 0 0 19.52 40.54 A 36.00 36.00 0 0 0 -19.52 40.54 A 36.00 36.00 0 0 0 -43.87 10.01 A 36.00 36.00 0 0 0 -35.18 -28.06 A 36.00 36.00 0 0 0 0.00 -45.00 Z" fill="currentColor"/></symbol>
+  <symbol id="s-sparkle" viewBox="-50 -50 100 100"><path d="M 0 -46.00 C 4.83 -13.80 13.80 -4.83 46.00 0 C 13.80 4.83 4.83 13.80 0 46.00 C -4.83 13.80 -13.80 4.83 -46.00 0 C -13.80 -4.83 -4.83 -13.80 0 -46.00 Z" fill="currentColor"/></symbol>
+  <symbol id="s-asterisk" viewBox="-50 -50 100 100"><path d="M -44.00 -0.00 L 44.00 0.00" stroke="currentColor" stroke-width="13" fill="none"/><path d="M -31.11 -31.11 L 31.11 31.11" stroke="currentColor" stroke-width="13" fill="none"/><path d="M -0.00 -44.00 L 0.00 44.00" stroke="currentColor" stroke-width="13" fill="none"/><path d="M 31.11 -31.11 L -31.11 31.11" stroke="currentColor" stroke-width="13" fill="none"/></symbol>
+  <symbol id="s-wavy-column" viewBox="-50 -50 100 100"><path d="M -6.00 -48.00 C -6.00 -36.00 -24.00 -36.00 -24.00 -24.00 C -24.00 -12.00 -6.00 -12.00 -6.00 0.00 C -6.00 12.00 -24.00 12.00 -24.00 24.00 C -24.00 36.00 -6.00 36.00 -6.00 48.00 L 24.00 48.00 C 24.00 36.00 6.00 36.00 6.00 24.00 C 6.00 12.00 24.00 12.00 24.00 0.00 C 24.00 -12.00 6.00 -12.00 6.00 -24.00 C 6.00 -36.00 24.00 -36.00 24.00 -48.00 Z" fill="currentColor"/></symbol>
+  <symbol id="s-squiggle" viewBox="-50 -50 100 100"><path d="M -52.00 0 C -41.60 -20.00 -27.73 -20.00 -17.33 0 C -6.93 20.00 6.93 20.00 17.33 0 C 27.73 -20.00 41.60 -20.00 52.00 0" fill="none" stroke="currentColor" stroke-width="14" stroke-linecap="round"/></symbol>
+  <symbol id="s-arc" viewBox="-50 -50 100 100"><g transform="translate(0,23)"><path d="M -46.00 0 A 46.00 46.00 0 0 1 46.00 0 L 29.00 0 A 29.00 29.00 0 0 0 -29.00 0 Z" fill="currentColor"/></g></symbol>
+  <symbol id="s-clover" viewBox="-50 -50 100 100"><path d="M 0.32 18.36 a 18.04 18.04 0 1 0 36.08 0 a 18.04 18.04 0 1 0 -36.08 0 Z M -36.40 18.36 a 18.04 18.04 0 1 0 36.08 0 a 18.04 18.04 0 1 0 -36.08 0 Z M -36.40 -18.36 a 18.04 18.04 0 1 0 36.08 0 a 18.04 18.04 0 1 0 -36.08 0 Z M 0.32 -18.36 a 18.04 18.04 0 1 0 36.08 0 a 18.04 18.04 0 1 0 -36.08 0 Z" fill="currentColor"/></symbol>
+</defs></svg>
+
+<div class="wrap">
+
+  <!-- ═══ NAVEGACIÓN ═══ -->
+  <nav class="nav">
+    <a href="#" aria-current="page">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 10.5 12 3.5l8.5 7v9.5a1 1 0 0 1-1 1h-15a1 1 0 0 1-1-1z"/></svg>
+      <span>HOME</span>
+    </a>
+    <a href="#portfolio">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="7.5" width="18" height="13" rx="1.5"/><path d="M9 7.5V5.6A1.6 1.6 0 0 1 10.6 4h2.8A1.6 1.6 0 0 1 15 5.6v1.9"/></svg>
+      <span>PORTFOLIO</span>
+    </a>
+    <a href="#about">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="3.6"/><path d="M4.6 20.5a7.4 7.4 0 0 1 14.8 0"/></svg>
+      <span>ABOUT ME</span>
+    </a>
+    <span class="spacer"></span>
+    <a href="#contact">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="5" width="19" height="14" rx="1.6"/><path d="m3.6 6.6 8.4 6.4 8.4-6.4"/></svg>
+      <span>CONTACT</span>
+    </a>
+  </nav>
+
+  <!-- ═══ NOMBRE + GRILLA ═══ -->
+  <header class="hero">
+    <h1 class="wordmark">
+      <span class="wm-line wm-a">L<span class="wm-sm">A<svg class="wm-deco wm-star shape" aria-hidden="true"><use href="#s-starburst"/></svg></span>RA</span>
+      <!-- ═══ CAMBIAR: tu rótulo ═══ -->
+      <span class="wm-role">Designer</span>
+      <span class="wm-line wm-b">MARI<span class="wm-sm up">N<svg class="wm-deco wm-wave shape" aria-hidden="true"><use href="#s-squiggle"/></svg></span>AC</span>
+    </h1>
+
+    <!-- 7 × 3 = 21 celdas. PORT / FO / LIO en diagonal -->
+    <div class="grid" aria-hidden="true">
+      <div class="cell"><span class="word">PORT</span></div>
+      <div class="cell sm-off"></div>
+      <div class="cell sm-off"></div>
+      <div class="cell"><svg class="art shape" style="color:var(--amber)"><use href="#s-sparkle"/></svg></div>
+      <div class="cell sm-off"></div>
+      <div class="cell"><svg class="art shape" style="color:var(--orange)"><use href="#s-scallop-ring"/></svg></div>
+      <div class="cell"></div>
+
+      <div class="cell sm-off"></div>
+      <div class="cell"><svg class="art shape" style="color:var(--green)"><use href="#s-starburst"/></svg></div>
+      <div class="cell sm-off"></div>
+      <div class="cell"><span class="word">FO</span></div>
+      <div class="cell sm-off"></div>
+      <div class="cell sm-off"></div>
+      <div class="cell"><svg class="art big shape" style="color:var(--amber)"><use href="#s-arc"/></svg></div>
+
+      <div class="cell"><svg class="art big shape" style="color:var(--orange)"><use href="#s-wavy-column"/></svg></div>
+      <div class="cell sm-off"></div>
+      <div class="cell sm-off"></div>
+      <div class="cell"></div>
+      <div class="cell"><svg class="art shape" style="color:var(--green)"><use href="#s-star-6"/></svg></div>
+      <div class="cell"></div>
+      <div class="cell"><span class="word">LIO</span></div>
+    </div>
+  </header>
+
+  <!-- ═══ GRAPHIC DESIGN ═══ -->
+  <section id="portfolio">
+    <div class="sec-head">
+      <svg class="mark shape" style="color:var(--green)" aria-hidden="true"><use href="#s-star-6"/></svg>
+      <h2>Graphic design</h2>
+      <span class="count">06 PROJECTS</span>
+    </div>
+
+    <div class="projects">
+      <a class="proj" href="img/labzine-tramas-1.jpg" data-proyecto="labzine-tramas">
+        <span class="proj-thumb"><img src="img/labzine-tramas-mini.jpg" alt="Labzine — Fanzine de tramas" loading="lazy" width="900" height="637"></span>
+        <span class="proj-meta">
+          <span class="proj-top">
+            <span class="proj-no">01 — 2023</span>
+            <svg class="proj-icon shape" style="color:var(--amber)" aria-hidden="true"><use href="#s-sparkle"/></svg>
+          </span>
+          <span>
+            <span class="proj-title">Labzine — Fanzine de tramas</span>
+            <span class="proj-tag">LABORATORIO DE DISEÑO 1</span>
+          </span>
+        </span>
+      </a>
+
+      <div class="filler hide-sm"><svg class="art shape" style="color:var(--green)" aria-hidden="true"><use href="#s-daisy"/></svg></div>
+
+      <a class="proj" href="img/di-haus-1.jpg" data-proyecto="di-haus">
+        <span class="proj-thumb"><img src="img/di-haus-mini.jpg" alt="Di Haus" loading="lazy" width="900" height="637"></span>
+        <span class="proj-meta">
+          <span class="proj-top">
+            <span class="proj-no">02 — 2023</span>
+            <svg class="proj-icon shape" style="color:var(--green)" aria-hidden="true"><use href="#s-clover"/></svg>
+          </span>
+          <span>
+            <span class="proj-title">Di Haus</span>
+            <span class="proj-tag">LABORATORIO DE DISEÑO 1</span>
+          </span>
+          <span class="proj-count">2 IMÁGENES</span>
+        </span>
+      </a>
+
+      <a class="proj" href="img/labzine-grupal-1.jpg" data-proyecto="labzine-grupal">
+        <span class="proj-thumb"><img src="img/labzine-grupal-mini.jpg" alt="Labzine — Trama grupal" loading="lazy" width="900" height="637"></span>
+        <span class="proj-meta">
+          <span class="proj-top">
+            <span class="proj-no">03 — 2023</span>
+            <svg class="proj-icon shape" style="color:var(--blue)" aria-hidden="true"><use href="#s-concave-star"/></svg>
+          </span>
+          <span>
+            <span class="proj-title">Labzine — Trama grupal</span>
+            <span class="proj-tag">LABORATORIO DE DISEÑO 1</span>
+          </span>
+        </span>
+      </a>
+
+      <div class="filler hide-sm"><svg class="art shape" style="color:var(--orange)" aria-hidden="true"><use href="#s-scallop"/></svg></div>
+
+      <a class="proj" href="img/expo-lab-1.jpg" data-proyecto="expo-lab">
+        <span class="proj-thumb"><img src="img/expo-lab-mini.jpg" alt="Expo Lab" loading="lazy" width="900" height="637"></span>
+        <span class="proj-meta">
+          <span class="proj-top">
+            <span class="proj-no">04 — 2023</span>
+            <svg class="proj-icon shape" style="color:var(--orange)" aria-hidden="true"><use href="#s-spike-star"/></svg>
+          </span>
+          <span>
+            <span class="proj-title">Expo Lab</span>
+            <span class="proj-tag">LABORATORIO DE DISEÑO 2</span>
+          </span>
+          <span class="proj-count">2 IMÁGENES</span>
+        </span>
+      </a>
+
+      <a class="proj" href="img/cultura-deporte-1.jpg" data-proyecto="cultura-deporte">
+        <span class="proj-thumb"><img src="img/cultura-deporte-mini.jpg" alt="La cultura del deporte" loading="lazy" width="900" height="637"></span>
+        <span class="proj-meta">
+          <span class="proj-top">
+            <span class="proj-no">05 — 2023</span>
+            <svg class="proj-icon shape" style="color:var(--amber)" aria-hidden="true"><use href="#s-daisy"/></svg>
+          </span>
+          <span>
+            <span class="proj-title">La cultura del deporte</span>
+            <span class="proj-tag">LABORATORIO DE DISEÑO 2</span>
+          </span>
+          <span class="proj-count">2 IMÁGENES</span>
+        </span>
+      </a>
+
+      <div class="filler hide-sm"><svg class="art shape" style="color:var(--amber)" aria-hidden="true"><use href="#s-arc"/></svg></div>
+
+      <a class="proj" href="img/panel-estres-1.jpg" data-proyecto="panel-estres">
+        <span class="proj-thumb"><img src="img/panel-estres-mini.jpg" alt="Panel de estrés" loading="lazy" width="900" height="637"></span>
+        <span class="proj-meta">
+          <span class="proj-top">
+            <span class="proj-no">06 — 2025</span>
+            <svg class="proj-icon shape" style="color:var(--green)" aria-hidden="true"><use href="#s-star-6"/></svg>
+          </span>
+          <span>
+            <span class="proj-title">Panel de estrés</span>
+            <span class="proj-tag">VISUALIZACIÓN DE LA INFORMACIÓN</span>
+          </span>
+        </span>
+      </a>
+    </div>
+  </section>
+
+  <!-- ═══ 3D DESIGN ═══ -->
+  <section id="tridi">
+    <div class="sec-head">
+      <svg class="mark shape" style="color:var(--blue)" aria-hidden="true"><use href="#s-clover"/></svg>
+      <h2>3D design</h2>
+      <span class="count">10 PROJECTS</span>
+    </div>
+
+    <div class="projects">
+      <a class="proj" href="img/exprimidor-1.jpg" data-proyecto="exprimidor">
+        <span class="proj-thumb"><img src="img/exprimidor-mini.jpg" alt="Exprimidor de jugo" loading="lazy" width="900" height="637"></span>
+        <span class="proj-meta">
+          <span class="proj-top">
+            <span class="proj-no">01 — 2024</span>
+            <svg class="proj-icon shape" style="color:var(--amber)" aria-hidden="true"><use href="#s-sparkle"/></svg>
+          </span>
+          <span>
+            <span class="proj-title">Exprimidor de jugo</span>
+            <span class="proj-tag">FAB LAB · TRABAJO PRÁCTICO 1</span>
+          </span>
+        </span>
+      </a>
+
+      <div class="filler hide-sm"><svg class="art shape" style="color:var(--green)" aria-hidden="true"><use href="#s-daisy"/></svg></div>
+
+      <a class="proj" href="img/mesa-keyshot-1.jpg" data-proyecto="mesa-keyshot">
+        <span class="proj-thumb"><img src="img/mesa-keyshot-mini.jpg" alt="Renderizado de mesa" loading="lazy" width="900" height="637"></span>
+        <span class="proj-meta">
+          <span class="proj-top">
+            <span class="proj-no">02 — 2024</span>
+            <svg class="proj-icon shape" style="color:var(--green)" aria-hidden="true"><use href="#s-clover"/></svg>
+          </span>
+          <span>
+            <span class="proj-title">Renderizado de mesa</span>
+            <span class="proj-tag">FAB LAB · RHINOCEROS + KEYSHOT</span>
+          </span>
+        </span>
+      </a>
+
+      <a class="proj" href="img/lampara-sizka-1.jpg" data-proyecto="lampara-sizka">
+        <span class="proj-thumb"><img src="img/lampara-sizka-mini.jpg" alt="Lámpara Sizka" loading="lazy" width="900" height="637"></span>
+        <span class="proj-meta">
+          <span class="proj-top">
+            <span class="proj-no">03 — 2024</span>
+            <svg class="proj-icon shape" style="color:var(--blue)" aria-hidden="true"><use href="#s-concave-star"/></svg>
+          </span>
+          <span>
+            <span class="proj-title">Lámpara Sizka</span>
+            <span class="proj-tag">FAB LAB</span>
+          </span>
+        </span>
+      </a>
+
+      <div class="filler hide-sm"><svg class="art shape" style="color:var(--orange)" aria-hidden="true"><use href="#s-scallop"/></svg></div>
+
+      <a class="proj" href="img/eco-ne-1.jpg" data-proyecto="eco-ne">
+        <span class="proj-thumb"><img src="img/eco-ne-mini.jpg" alt="ECO-NE" loading="lazy" width="900" height="637"></span>
+        <span class="proj-meta">
+          <span class="proj-top">
+            <span class="proj-no">04 — 2024</span>
+            <svg class="proj-icon shape" style="color:var(--orange)" aria-hidden="true"><use href="#s-spike-star"/></svg>
+          </span>
+          <span>
+            <span class="proj-title">ECO-NE</span>
+            <span class="proj-tag">LABORATORIO DE DISEÑO 3</span>
+          </span>
+        </span>
+      </a>
+
+      <a class="proj" href="img/backbone-1.jpg" data-proyecto="backbone">
+        <span class="proj-thumb"><img src="img/backbone-mini.jpg" alt="Backbone — Biomímesis" loading="lazy" width="900" height="637"></span>
+        <span class="proj-meta">
+          <span class="proj-top">
+            <span class="proj-no">05 — 2024</span>
+            <svg class="proj-icon shape" style="color:var(--amber)" aria-hidden="true"><use href="#s-daisy"/></svg>
+          </span>
+          <span>
+            <span class="proj-title">Backbone — Biomímesis</span>
+            <span class="proj-tag">LABORATORIO DE DISEÑO 3</span>
+          </span>
+        </span>
+      </a>
+
+      <div class="filler hide-sm"><svg class="art shape" style="color:var(--amber)" aria-hidden="true"><use href="#s-arc"/></svg></div>
+
+      <a class="proj" href="img/parasito-1.jpg" data-proyecto="parasito">
+        <span class="proj-thumb"><img src="img/parasito-mini.jpg" alt="Parásito" loading="lazy" width="900" height="637"></span>
+        <span class="proj-meta">
+          <span class="proj-top">
+            <span class="proj-no">06 — 2024</span>
+            <svg class="proj-icon shape" style="color:var(--green)" aria-hidden="true"><use href="#s-star-6"/></svg>
+          </span>
+          <span>
+            <span class="proj-title">Parásito</span>
+            <span class="proj-tag">LABORATORIO DE DISEÑO 4</span>
+          </span>
+        </span>
+      </a>
+
+      <a class="proj" href="img/ice-ride-1.jpg" data-proyecto="ice-ride">
+        <span class="proj-thumb"><img src="img/ice-ride-mini.jpg" alt="Ice-Ride — Refill" loading="lazy" width="900" height="637"></span>
+        <span class="proj-meta">
+          <span class="proj-top">
+            <span class="proj-no">07 — 2024</span>
+            <svg class="proj-icon shape" style="color:var(--blue)" aria-hidden="true"><use href="#s-scallop"/></svg>
+          </span>
+          <span>
+            <span class="proj-title">Ice-Ride — Refill</span>
+            <span class="proj-tag">LABORATORIO DE DISEÑO 4</span>
+          </span>
+        </span>
+      </a>
+
+      <div class="filler hide-sm"><svg class="art shape" style="color:var(--blue)" aria-hidden="true"><use href="#s-clover"/></svg></div>
+
+      <a class="proj" href="img/geolino-um-1.jpg" data-proyecto="geolino-um">
+        <span class="proj-thumb"><img src="img/geolino-um-mini.jpg" alt="Geolino-um" loading="lazy" width="900" height="637"></span>
+        <span class="proj-meta">
+          <span class="proj-top">
+            <span class="proj-no">08 — 2024</span>
+            <svg class="proj-icon shape" style="color:var(--orange)" aria-hidden="true"><use href="#s-starburst"/></svg>
+          </span>
+          <span>
+            <span class="proj-title">Geolino-um</span>
+            <span class="proj-tag">INGENIERÍA DE LOS MATERIALES</span>
+          </span>
+        </span>
+      </a>
+
+      <a class="proj" href="img/rosedal-1.jpg" data-proyecto="rosedal">
+        <span class="proj-thumb"><img src="img/rosedal-mini.jpg" alt="Sintonía del Rosedal" loading="lazy" width="900" height="637"></span>
+        <span class="proj-meta">
+          <span class="proj-top">
+            <span class="proj-no">09 — 2024</span>
+            <svg class="proj-icon shape" style="color:var(--amber)" aria-hidden="true"><use href="#s-asterisk"/></svg>
+          </span>
+          <span>
+            <span class="proj-title">Sintonía del Rosedal</span>
+            <span class="proj-tag">LABORATORIO DE DISEÑO 4</span>
+          </span>
+        </span>
+      </a>
+
+      <div class="filler hide-sm"><svg class="art shape" style="color:var(--green)" aria-hidden="true"><use href="#s-star-6"/></svg></div>
+
+      <a class="proj" href="img/el-contrabando-1.jpg" data-proyecto="el-contrabando">
+        <span class="proj-thumb"><img src="img/el-contrabando-mini.jpg" alt="El Contrabando" loading="lazy" width="900" height="637"></span>
+        <span class="proj-meta">
+          <span class="proj-top">
+            <span class="proj-no">10 — 2026</span>
+            <svg class="proj-icon shape" style="color:var(--green)" aria-hidden="true"><use href="#s-scallop-ring"/></svg>
+          </span>
+          <span>
+            <span class="proj-title">El Contrabando</span>
+            <span class="proj-tag">LABORATORIO DE DISEÑO 6</span>
+          </span>
+        </span>
+      </a>
+    </div>
+  </section>
+
+  <!-- ═══ JOB EXPERIENCE ═══ -->
+  <section id="trabajo">
+    <div class="sec-head">
+      <svg class="mark shape" style="color:var(--amber)" aria-hidden="true"><use href="#s-scallop-ring"/></svg>
+      <h2>Job experience</h2>
+      <span class="count">03 BRANDS</span>
+    </div>
+
+    <div class="projects tercios">
+      <a class="proj" href="img/eighty-eight-1.jpg" data-proyecto="eighty-eight">
+        <span class="proj-thumb"><img src="img/eighty-eight-mini.jpg" alt="Eighty Eight" loading="lazy"></span>
+        <span class="proj-meta">
+          <span class="proj-top">
+            <span class="proj-no">01 — 2025</span>
+            <svg class="proj-icon shape" style="color:var(--green)" aria-hidden="true"><use href="#s-daisy"/></svg>
+          </span>
+          <span>
+            <span class="proj-title">Eighty Eight</span>
+            <span class="proj-tag">IDENTIDAD DE MARCA · ROPA MASCULINA RETRO</span>
+          </span>
+        </span>
+      </a>
+
+      <div class="filler hide-sm"><svg class="art shape" style="color:var(--blue)" aria-hidden="true"><use href="#s-starburst"/></svg></div>
+
+      <a class="proj" href="img/oria-1.jpg" data-proyecto="oria">
+        <span class="proj-thumb"><img src="img/oria-mini.jpg" alt="Oria Bags" loading="lazy"></span>
+        <span class="proj-meta">
+          <span class="proj-top">
+            <span class="proj-no">02 — 2025</span>
+            <svg class="proj-icon shape" style="color:var(--amber)" aria-hidden="true"><use href="#s-sparkle"/></svg>
+          </span>
+          <span>
+            <span class="proj-title">Oria Bags</span>
+            <span class="proj-tag">IDENTIDAD DE MARCA + SITIO WEB · ACCESORIOS</span>
+          </span>
+          <span class="proj-count">SITIO WEB</span>
+        </span>
+      </a>
+
+      <a class="proj" href="img/cimarron-1.jpg" data-proyecto="cimarron">
+        <span class="proj-thumb"><img src="img/cimarron-mini.jpg" alt="Cimarrón" loading="lazy"></span>
+        <span class="proj-meta">
+          <span class="proj-top">
+            <span class="proj-no">03 — 2025</span>
+            <svg class="proj-icon shape" style="color:var(--orange)" aria-hidden="true"><use href="#s-concave-star"/></svg>
+          </span>
+          <span>
+            <span class="proj-title">Cimarrón</span>
+            <span class="proj-tag">IDENTIDAD DE MARCA · MATES ARGENTINOS</span>
+          </span>
+        </span>
+      </a>
+
+      <div class="filler hide-sm"><svg class="art shape" style="color:var(--amber)" aria-hidden="true"><use href="#s-arc"/></svg></div>
+
+      <div class="filler ancho hide-sm"><svg class="art shape" style="color:var(--green)" aria-hidden="true"><use href="#s-scallop"/></svg></div>
+    </div>
+  </section>
+
+  <!-- ═══ ABOUT — CAMBIAR: tu bio y tus rubros ═══ -->
+  <section id="about">
+    <div class="sec-head">
+      <svg class="mark shape" style="color:var(--amber)" aria-hidden="true"><use href="#s-sparkle"/></svg>
+      <h2>About me</h2>
+      <span class="count">BUENOS AIRES, AR</span>
+    </div>
+
+    <div class="about">
+
+      <div class="photo">
+        <img src="img/lara.jpg" alt="Retrato de Lara Marinac" width="800" height="800">
+      </div>
+
+      <div class="bio">
+        <!-- ═══ CAMBIAR: acá iría una línea que diga qué hacés ═══ -->
+        <p class="lede">The sky is the limit.</p>
+        <p>I'm from Argentina, the country where I've lived all my life and that taught me its culture and everything I know. Thanks to this country, to my family and to the beautiful people around me, I learned to navigate this world in the most grateful and happy way possible.</p>
+        <p>I'm a true believer that learning is a constant process of personal growth, where each experience shapes and transforms us. Every situation I go through, academic or personal, is an opportunity to grow — life always tries to teach us something, even when the lesson has a bitter taste.</p>
+        <p>I entered Universidad Torcuato Di Tella to develop my creative and technical skills in an excellent academic environment. I'm also interested in joining an exchange program, to broaden my perspective and enrich my training, helping others achieve the same along the way.</p>
+      </div>
+
+      <div class="square"><svg class="art shape" style="color:var(--blue)" aria-hidden="true"><use href="#s-asterisk"/></svg></div>
+      <div class="square"><svg class="art shape" style="color:var(--amber)" aria-hidden="true"><use href="#s-sparkle"/></svg></div>
+
+      <div class="info info-edu">
+        <h3>EDUCATION</h3>
+        <div class="entry">
+          <b>Universidad Torcuato Di Tella</b>
+          <span>Currently studying. Buenos Aires, Argentina.</span>
+        </div>
+        <div class="entry">
+          <b>St. Mark's School</b>
+          <span>All my school years at a bilingual school that taught me English as if it were my first language. Trinity College London and Cambridge AS exams.</span>
+        </div>
+      </div>
+
+      <div class="info info-lang">
+        <h3>LANGUAGES</h3>
+        <div class="lang"><em>Spanish</em><i style="--n:100%"></i></div>
+        <div class="lang"><em>English</em><i style="--n:92%"></i></div>
+        <p style="font-size:0.72rem;margin-top:0.9rem;line-height:1.5;">Bilingual since school. Trinity College London and Cambridge AS certified.</p>
+      </div>
+
+      <!-- ═══ CAMBIAR: agregá o sacá herramientas ═══ -->
+      <div class="skills">
+        <span class="chip">Illustrator</span>
+        <span class="chip">Photoshop</span>
+        <span class="chip">After Effects</span>
+        <span class="chip">Rhino</span>
+        <span class="chip">Cinema 4D</span>
+        <span class="chip">VS Code</span>
+        <span class="chip">Figma</span>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ═══ CONTACTO — CAMBIAR: tu mail y tus redes ═══ -->
+  <section id="contact">
+    <div class="sec-head">
+      <svg class="mark shape" style="color:var(--orange)" aria-hidden="true"><use href="#s-scallop"/></svg>
+      <h2>Say hello</h2>
+      <span class="count">OPEN FOR WORK</span>
+    </div>
+
+    <div class="contact-inner">
+      <a class="mail" href="mailto:larimarinacc@gmail.com">larimarinacc@gmail.com</a>
+      <p class="contact-note">Reply within two working days, usually one.</p>
+      <div class="socials">
+        <a href="https://www.instagram.com/laramarinac.led" target="_blank" rel="noopener">INSTAGRAM</a>
+        <a href="https://www.linkedin.com/in/lara-marinac" target="_blank" rel="noopener">LINKEDIN</a>
+        <a href="cv-lara-marinac.pdf" target="_blank" rel="noopener" download>CV / PDF ↓</a>
+      </div>
+    </div>
+
+    <div class="strip" aria-hidden="true">
+      <div class="cell"><svg class="art shape" style="color:var(--green)"><use href="#s-star-6"/></svg></div>
+      <div class="cell"></div>
+      <div class="cell"><svg class="art shape" style="color:var(--amber)"><use href="#s-sparkle"/></svg></div>
+      <div class="cell"></div>
+      <div class="cell"><svg class="art shape" style="color:var(--orange)"><use href="#s-clover"/></svg></div>
+      <div class="cell"></div>
+      <div class="cell"><svg class="art shape" style="color:var(--blue)"><use href="#s-starburst"/></svg></div>
+    </div>
+  </section>
+
+  <footer>
+    <span>© 2026 LARA MARINAC</span>
+    <span>@LARAMARINAC.LED</span>
+  </footer>
+
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════
+     VISOR DE IMÁGENES
+     Se cierra con la cruz, con Escape, tocando el fondo,
+     o con el botón "atrás" del celular.
+     Se navega con las flechas, con el teclado, o deslizando.
+     ═══════════════════════════════════════════════════════════ -->
+<div class="lb" id="lb" hidden role="dialog" aria-modal="true" aria-label="Visor de imágenes">
+  <button class="lb-close" id="lbCerrar" aria-label="Cerrar">✕</button>
+  <button class="lb-prev"  id="lbAnt"    aria-label="Imagen anterior">←</button>
+  <button class="lb-next"  id="lbSig"    aria-label="Imagen siguiente">→</button>
+  <figure class="lb-fig">
+    <img id="lbImg" alt="">
+    <figcaption class="lb-cap" id="lbCap"></figcaption>
+    <a class="lb-link" id="lbLink" target="_blank" rel="noopener" hidden>VER EL SITIO ↗</a>
+  </figure>
+</div>
+
+<script>
+(function () {
+  "use strict";
+  var DATOS = {"labzine-tramas": {"titulo": "Labzine — Fanzine de tramas", "materia": "Laboratorio de Diseño 1", "anio": "2023", "imgs": ["img/labzine-tramas-1.jpg"]}, "di-haus": {"titulo": "Di Haus", "materia": "Laboratorio de Diseño 1", "anio": "2023", "imgs": ["img/di-haus-1.jpg", "img/di-haus-2.jpg"]}, "labzine-grupal": {"titulo": "Labzine — Trama grupal", "materia": "Laboratorio de Diseño 1", "anio": "2023", "imgs": ["img/labzine-grupal-1.jpg"]}, "expo-lab": {"titulo": "Expo Lab", "materia": "Laboratorio de Diseño 2", "anio": "2023", "imgs": ["img/expo-lab-1.jpg", "img/expo-lab-2.jpg"]}, "cultura-deporte": {"titulo": "La cultura del deporte", "materia": "Laboratorio de Diseño 2", "anio": "2023", "imgs": ["img/cultura-deporte-1.jpg", "img/cultura-deporte-2.jpg"]}, "panel-estres": {"titulo": "Panel de estrés", "materia": "Visualización de la Información", "anio": "2025", "imgs": ["img/panel-estres-1.jpg"]}, "exprimidor": {"titulo": "Exprimidor de jugo", "materia": "FAB LAB · Trabajo Práctico 1", "anio": "2024", "imgs": ["img/exprimidor-1.jpg"]}, "mesa-keyshot": {"titulo": "Renderizado de mesa", "materia": "FAB LAB · Rhinoceros + Keyshot", "anio": "2024", "imgs": ["img/mesa-keyshot-1.jpg"]}, "lampara-sizka": {"titulo": "Lámpara Sizka", "materia": "FAB LAB", "anio": "2024", "imgs": ["img/lampara-sizka-1.jpg"]}, "eco-ne": {"titulo": "ECO-NE", "materia": "Laboratorio de Diseño 3", "anio": "2024", "imgs": ["img/eco-ne-1.jpg"]}, "backbone": {"titulo": "Backbone — Biomímesis", "materia": "Laboratorio de Diseño 3", "anio": "2024", "imgs": ["img/backbone-1.jpg"]}, "parasito": {"titulo": "Parásito", "materia": "Laboratorio de Diseño 4", "anio": "2024", "imgs": ["img/parasito-1.jpg"]}, "ice-ride": {"titulo": "Ice-Ride — Refill", "materia": "Laboratorio de Diseño 4", "anio": "2024", "imgs": ["img/ice-ride-1.jpg"]}, "geolino-um": {"titulo": "Geolino-um", "materia": "Ingeniería de los Materiales", "anio": "2024", "imgs": ["img/geolino-um-1.jpg"]}, "rosedal": {"titulo": "Sintonía del Rosedal", "materia": "Laboratorio de Diseño 4", "anio": "2024", "imgs": ["img/rosedal-1.jpg"]}, "el-contrabando": {"titulo": "El Contrabando", "materia": "Laboratorio de Diseño 6", "anio": "2026", "imgs": ["img/el-contrabando-1.jpg"]}, "eighty-eight": {"titulo": "Eighty Eight", "materia": "Identidad de marca · Ropa masculina retro", "anio": "2025", "imgs": ["img/eighty-eight-1.jpg"]}, "oria": {"titulo": "Oria Bags", "materia": "Identidad de marca + sitio web · Accesorios", "anio": "2025", "imgs": ["img/oria-1.jpg"], "url": "https://oriabags.github.io/Oria/"}, "cimarron": {"titulo": "Cimarrón", "materia": "Identidad de marca · Mates argentinos", "anio": "2025", "imgs": ["img/cimarron-1.jpg"]}};
+
+  var lb = document.getElementById("lb"), img = document.getElementById("lbImg"),
+      cap = document.getElementById("lbCap"), enlace = document.getElementById("lbLink"),
+      bCerrar = document.getElementById("lbCerrar"),
+      bAnt = document.getElementById("lbAnt"), bSig = document.getElementById("lbSig");
+
+  var proy = null, i = 0, enHistorial = false, focoPrevio = null;
+
+  function pintar() {
+    var n = proy.imgs.length;
+    img.src = proy.imgs[i];
+    img.alt = proy.titulo + " — imagen " + (i + 1) + " de " + n;
+    cap.innerHTML = "<b>" + proy.titulo + "</b><br>" + proy.materia + " · " + proy.anio +
+                    (n > 1 ? "  —  " + (i + 1) + " / " + n : "");
+    bAnt.disabled = bSig.disabled = (n < 2);
+    if (proy.url) { enlace.href = proy.url; enlace.hidden = false; } else { enlace.hidden = true; }
+    if (n > 1) {                                   // precarga la siguiente, no todas
+      var p = new Image(); p.src = proy.imgs[(i + 1) % n];
+    }
+  }
+
+  function abrir(slug, desde) {
+    proy = DATOS[slug]; if (!proy) return;
+    i = desde || 0;
+    focoPrevio = document.activeElement;
+    pintar();
+    lb.hidden = false;
+    document.body.style.overflow = "hidden";
+    bCerrar.focus();
+    if (!enHistorial) { history.pushState({ lb: 1 }, ""); enHistorial = true; }
+  }
+
+  function cerrar(desdeAtras) {
+    if (lb.hidden) return;
+    lb.hidden = true;
+    document.body.style.overflow = "";
+    if (focoPrevio && focoPrevio.focus) focoPrevio.focus();
+    if (enHistorial && !desdeAtras) { enHistorial = false; history.back(); }
+    else { enHistorial = false; }
+  }
+
+  function mover(d) {
+    if (!proy || proy.imgs.length < 2) return;
+    i = (i + d + proy.imgs.length) % proy.imgs.length;
+    pintar();
+  }
+
+  document.querySelectorAll(".proj[data-proyecto]").forEach(function (a) {
+    a.addEventListener("click", function (e) { e.preventDefault(); abrir(a.dataset.proyecto, 0); });
+  });
+
+  bCerrar.addEventListener("click", function () { cerrar(false); });
+  bAnt.addEventListener("click", function (e) { e.stopPropagation(); mover(-1); });
+  bSig.addEventListener("click", function (e) { e.stopPropagation(); mover(1); });
+
+  // tocar el fondo cierra; tocar la imagen no
+  lb.addEventListener("click", function (e) { if (e.target === lb || e.target.tagName === "FIGURE") cerrar(false); });
+
+  document.addEventListener("keydown", function (e) {
+    if (lb.hidden) return;
+    if (e.key === "Escape") cerrar(false);
+    else if (e.key === "ArrowLeft") mover(-1);
+    else if (e.key === "ArrowRight") mover(1);
+    else if (e.key === "Tab") { e.preventDefault(); bCerrar.focus(); }
+  });
+
+  window.addEventListener("popstate", function () { cerrar(true); });
+
+  var x0 = null;
+  lb.addEventListener("touchstart", function (e) { x0 = e.changedTouches[0].clientX; }, { passive: true });
+  lb.addEventListener("touchend", function (e) {
+    if (x0 === null) return;
+    var dx = e.changedTouches[0].clientX - x0;
+    if (Math.abs(dx) > 45) mover(dx < 0 ? 1 : -1);
+    x0 = null;
+  }, { passive: true });
+})();
+</script>
+
+</body>
+</html>
