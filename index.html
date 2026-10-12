@@ -33,17 +33,21 @@
     --amber:  #F0B85F;
     --ink:    #2B1A10;
 
+    --bg:        #EDEDED;  /* fondo de la pagina */
+    --grid-line: #23284C;  /* lineas de la grilla del hero */
+
     --display: 'Alfarn', 'Archivo Black', 'Arial Black', sans-serif;
     --body:    'Montserrat', system-ui, sans-serif;
 
     --rule: 2px;
+    --rule-grid: 1px;   /* solo la grilla del hero, mas liviana */
     --gutter: clamp(1rem, 3.5vw, 2.5rem);
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
 
   body {
-    background: var(--cream);
+    background: var(--bg);
     color: var(--ink);
     font-family: var(--body);
     font-size: clamp(0.9rem, 0.85rem + 0.2vw, 1rem);
@@ -84,7 +88,7 @@
   .nav span { font-size: 0.6rem; font-weight: 700; letter-spacing: 0.06em; }
 
   /* ── Nombre ─────────────────────────────────────── */
-  .hero { padding-block: clamp(2.5rem, 7vw, 5rem) 0; }
+  .hero { padding-block: clamp(2.5rem, 7vw, 5rem) clamp(2.5rem, 7vw, 6rem); }
 
   .wordmark {
     /* Grilla de 2 columnas: MARINAC arranca exacto donde termina LARA,
@@ -149,15 +153,15 @@
   .grid {
     display: grid;
     grid-template-columns: repeat(7, minmax(0, 1fr));
-    border-top: var(--rule) solid var(--orange);
-    border-left: var(--rule) solid var(--orange);
+    border-top: var(--rule-grid) solid var(--grid-line);
+    border-left: var(--rule-grid) solid var(--grid-line);
     max-width: 44rem;
     margin: clamp(2.5rem, 7vw, 4.5rem) auto 0;
   }
   .cell {
     aspect-ratio: 1;
-    border-right: var(--rule) solid var(--orange);
-    border-bottom: var(--rule) solid var(--orange);
+    border-right: var(--rule-grid) solid var(--grid-line);
+    border-bottom: var(--rule-grid) solid var(--grid-line);
     display: grid;
     place-items: center;
     padding: 18%;
@@ -185,12 +189,12 @@
   .sec-head h2 {
     font-family: var(--display);
     font-weight: 400;
-    font-size: clamp(1.6rem, 5vw, 3.2rem);
+    font-size: clamp(1.15rem, 3.2vw, 2.1rem);
     color: var(--orange);
     text-transform: uppercase;
     line-height: 1;
   }
-  .sec-head .mark { width: clamp(1.5rem, 3.5vw, 2.4rem); aspect-ratio: 1; flex: none; }
+  .sec-head .mark { width: clamp(1rem, 2.3vw, 1.6rem); aspect-ratio: 1; flex: none; }
   .sec-head .count {
     margin-left: auto;
     font-size: 0.7rem;
@@ -486,6 +490,44 @@
   @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after { transition: none !important; animation: none !important; }
   }
+
+  /* ── La grilla arma la palabra al scrollear ──────────
+     --p va de 0 (disperso) a 1 (PORTFOLIO armado).
+     Lo setea el script del final; si no corre, queda en 0
+     y la grilla se ve exactamente como antes.          */
+  .grid { --p: 0; }
+
+  .cell .word {
+    position: relative;
+    z-index: 2;
+    will-change: transform;
+    transform: translate(calc(var(--dx, 0px) * var(--p)),
+                         calc(var(--dy, 0px) * var(--p)));
+  }
+  /* el fondo aparece solo al final, para tapar las lineas
+     de la grilla cuando la palabra ya esta armada */
+  .cell .word::before {
+    content: "";
+    position: absolute;
+    inset: -0.12em -0.06em;
+    background: var(--bg);
+    opacity: calc((var(--p) - 0.75) * 4);
+    z-index: -1;
+  }
+
+  /* los glifos se corren hacia afuera y rotan un poco,
+     como haciendo lugar */
+  .cell .art {
+    will-change: transform;
+    transform: translate(calc(var(--gx, 0px) * var(--p)),
+                         calc(var(--gy, 0px) * var(--p)))
+               rotate(calc(var(--gr, 0deg) * var(--p)));
+    opacity: calc(1 - var(--p) * 0.55);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .grid { --p: 0 !important; }
+  }
 </style>
 </head>
 
@@ -543,7 +585,7 @@
       <span class="wm-line wm-a">L<span class="wm-sm">A<svg class="wm-deco wm-star shape" aria-hidden="true"><use href="#s-starburst"/></svg></span>RA</span>
       <!-- ═══ CAMBIAR: tu rótulo ═══ -->
       <span class="wm-role">Designer</span>
-      <span class="wm-line wm-b">MARI<span class="wm-sm up">N<svg class="wm-deco wm-wave shape" aria-hidden="true"><use href="#s-squiggle"/></svg></span>AC</span>
+      <span class="wm-line wm-b">MARIN<span class="wm-sm up">A<svg class="wm-deco wm-wave shape" aria-hidden="true"><use href="#s-squiggle"/></svg></span>C</span>
     </h1>
 
     <!-- 7 × 3 = 21 celdas. PORT / FO / LIO en diagonal -->
@@ -683,7 +725,7 @@
     <div class="sec-head">
       <svg class="mark shape" style="color:var(--blue)" aria-hidden="true"><use href="#s-clover"/></svg>
       <h2>3D design</h2>
-      <span class="count">10 PROJECTS</span>
+      <span class="count">11 PROJECTS</span>
     </div>
 
     <div class="projects">
@@ -794,14 +836,14 @@
       <div class="filler hide-sm"><svg class="art shape" style="color:var(--blue)" aria-hidden="true"><use href="#s-clover"/></svg></div>
 
       <a class="proj" href="img/geolino-um-1.jpg" data-proyecto="geolino-um">
-        <span class="proj-thumb"><img src="img/geolino-um-mini.jpg" alt="Geolino-um" loading="lazy" width="900" height="637"></span>
+        <span class="proj-thumb"><img src="img/geolino-um-mini.jpg" alt="Geolingum" loading="lazy" width="900" height="637"></span>
         <span class="proj-meta">
           <span class="proj-top">
             <span class="proj-no">08 — 2024</span>
             <svg class="proj-icon shape" style="color:var(--orange)" aria-hidden="true"><use href="#s-starburst"/></svg>
           </span>
           <span>
-            <span class="proj-title">Geolino-um</span>
+            <span class="proj-title">Geolingum</span>
             <span class="proj-tag">INGENIERÍA DE LOS MATERIALES</span>
           </span>
         </span>
@@ -833,6 +875,20 @@
           <span>
             <span class="proj-title">El Contrabando</span>
             <span class="proj-tag">LABORATORIO DE DISEÑO 6</span>
+          </span>
+        </span>
+      </a>
+
+      <a class="proj" href="img/silla-a-comoda-1.jpg" data-proyecto="silla-a-comoda">
+        <span class="proj-thumb"><img src="img/silla-a-comoda-mini.jpg" alt="Silla A-Cómoda" loading="lazy" width="900" height="637"></span>
+        <span class="proj-meta">
+          <span class="proj-top">
+            <span class="proj-no">11 — 2026</span>
+            <svg class="proj-icon shape" style="color:var(--amber)" aria-hidden="true"><use href="#s-wavy-column"/></svg>
+          </span>
+          <span>
+            <span class="proj-title">Silla A-Cómoda</span>
+            <span class="proj-tag">DISEÑO DE MOBILIARIO MODULAR · TRABAJO PRÁCTICO FINAL</span>
           </span>
         </span>
       </a>
@@ -1013,7 +1069,7 @@
 <script>
 (function () {
   "use strict";
-  var DATOS = {"labzine-tramas": {"titulo": "Labzine — Fanzine de tramas", "materia": "Laboratorio de Diseño 1", "anio": "2023", "imgs": ["img/labzine-tramas-1.jpg"]}, "di-haus": {"titulo": "Di Haus", "materia": "Laboratorio de Diseño 1", "anio": "2023", "imgs": ["img/di-haus-1.jpg", "img/di-haus-2.jpg"]}, "labzine-grupal": {"titulo": "Labzine — Trama grupal", "materia": "Laboratorio de Diseño 1", "anio": "2023", "imgs": ["img/labzine-grupal-1.jpg"]}, "expo-lab": {"titulo": "Expo Lab", "materia": "Laboratorio de Diseño 2", "anio": "2023", "imgs": ["img/expo-lab-1.jpg", "img/expo-lab-2.jpg"]}, "cultura-deporte": {"titulo": "La cultura del deporte", "materia": "Laboratorio de Diseño 2", "anio": "2023", "imgs": ["img/cultura-deporte-1.jpg", "img/cultura-deporte-2.jpg"]}, "panel-estres": {"titulo": "Panel de estrés", "materia": "Visualización de la Información", "anio": "2025", "imgs": ["img/panel-estres-1.jpg"]}, "exprimidor": {"titulo": "Exprimidor de jugo", "materia": "FAB LAB · Trabajo Práctico 1", "anio": "2024", "imgs": ["img/exprimidor-1.jpg"]}, "mesa-keyshot": {"titulo": "Renderizado de mesa", "materia": "FAB LAB · Rhinoceros + Keyshot", "anio": "2024", "imgs": ["img/mesa-keyshot-1.jpg"]}, "lampara-sizka": {"titulo": "Lámpara Sizka", "materia": "FAB LAB", "anio": "2024", "imgs": ["img/lampara-sizka-1.jpg"]}, "eco-ne": {"titulo": "ECO-NE", "materia": "Laboratorio de Diseño 3", "anio": "2024", "imgs": ["img/eco-ne-1.jpg"]}, "backbone": {"titulo": "Backbone — Biomímesis", "materia": "Laboratorio de Diseño 3", "anio": "2024", "imgs": ["img/backbone-1.jpg"]}, "parasito": {"titulo": "Parásito", "materia": "Laboratorio de Diseño 4", "anio": "2024", "imgs": ["img/parasito-1.jpg"]}, "ice-ride": {"titulo": "Ice-Ride — Refill", "materia": "Laboratorio de Diseño 4", "anio": "2024", "imgs": ["img/ice-ride-1.jpg"]}, "geolino-um": {"titulo": "Geolino-um", "materia": "Ingeniería de los Materiales", "anio": "2024", "imgs": ["img/geolino-um-1.jpg"]}, "rosedal": {"titulo": "Sintonía del Rosedal", "materia": "Laboratorio de Diseño 4", "anio": "2024", "imgs": ["img/rosedal-1.jpg"]}, "el-contrabando": {"titulo": "El Contrabando", "materia": "Laboratorio de Diseño 6", "anio": "2026", "imgs": ["img/el-contrabando-1.jpg"]}, "eighty-eight": {"titulo": "Eighty Eight", "materia": "Identidad de marca · Ropa masculina retro", "anio": "2025", "imgs": ["img/eighty-eight-1.jpg"]}, "oria": {"titulo": "Oria Bags", "materia": "Identidad de marca + sitio web · Accesorios", "anio": "2025", "imgs": ["img/oria-1.jpg"], "url": "https://oriabags.github.io/Oria/"}, "cimarron": {"titulo": "Cimarrón", "materia": "Identidad de marca · Mates argentinos", "anio": "2025", "imgs": ["img/cimarron-1.jpg"]}};
+  var DATOS = {"labzine-tramas": {"titulo": "Labzine — Fanzine de tramas", "materia": "Laboratorio de Diseño 1", "anio": "2023", "imgs": ["img/labzine-tramas-1.jpg"]}, "di-haus": {"titulo": "Di Haus", "materia": "Laboratorio de Diseño 1", "anio": "2023", "imgs": ["img/di-haus-1.jpg", "img/di-haus-2.jpg"]}, "labzine-grupal": {"titulo": "Labzine — Trama grupal", "materia": "Laboratorio de Diseño 1", "anio": "2023", "imgs": ["img/labzine-grupal-1.jpg"]}, "expo-lab": {"titulo": "Expo Lab", "materia": "Laboratorio de Diseño 2", "anio": "2023", "imgs": ["img/expo-lab-1.jpg", "img/expo-lab-2.jpg"]}, "cultura-deporte": {"titulo": "La cultura del deporte", "materia": "Laboratorio de Diseño 2", "anio": "2023", "imgs": ["img/cultura-deporte-1.jpg", "img/cultura-deporte-2.jpg"]}, "panel-estres": {"titulo": "Panel de estrés", "materia": "Visualización de la Información", "anio": "2025", "imgs": ["img/panel-estres-1.jpg"]}, "exprimidor": {"titulo": "Exprimidor de jugo", "materia": "FAB LAB · Trabajo Práctico 1", "anio": "2024", "imgs": ["img/exprimidor-1.jpg"]}, "mesa-keyshot": {"titulo": "Renderizado de mesa", "materia": "FAB LAB · Rhinoceros + Keyshot", "anio": "2024", "imgs": ["img/mesa-keyshot-1.jpg"]}, "lampara-sizka": {"titulo": "Lámpara Sizka", "materia": "FAB LAB", "anio": "2024", "imgs": ["img/lampara-sizka-1.jpg"]}, "eco-ne": {"titulo": "ECO-NE", "materia": "Laboratorio de Diseño 3", "anio": "2024", "imgs": ["img/eco-ne-1.jpg"]}, "backbone": {"titulo": "Backbone — Biomímesis", "materia": "Laboratorio de Diseño 3", "anio": "2024", "imgs": ["img/backbone-1.jpg"]}, "parasito": {"titulo": "Parásito", "materia": "Laboratorio de Diseño 4", "anio": "2024", "imgs": ["img/parasito-1.jpg"]}, "ice-ride": {"titulo": "Ice-Ride — Refill", "materia": "Laboratorio de Diseño 4", "anio": "2024", "imgs": ["img/ice-ride-1.jpg"]}, "geolino-um": {"titulo": "Geolingum", "materia": "Ingeniería de los Materiales", "anio": "2024", "imgs": ["img/geolino-um-1.jpg"]}, "rosedal": {"titulo": "Sintonía del Rosedal", "materia": "Laboratorio de Diseño 4", "anio": "2024", "imgs": ["img/rosedal-1.jpg"]}, "el-contrabando": {"titulo": "El Contrabando", "materia": "Laboratorio de Diseño 6", "anio": "2026", "imgs": ["img/el-contrabando-1.jpg"]}, "silla-a-comoda": {"titulo": "Silla A-Cómoda", "materia": "Diseño de Mobiliario Modular · Trabajo Práctico Final", "anio": "2026", "imgs": ["img/silla-a-comoda-1.jpg"]},"eighty-eight": {"titulo": "Eighty Eight", "materia": "Identidad de marca · Ropa masculina retro", "anio": "2025", "imgs": ["img/eighty-eight-1.jpg"]}, "oria": {"titulo": "Oria Bags", "materia": "Identidad de marca + sitio web · Accesorios", "anio": "2025", "imgs": ["img/oria-1.jpg"], "url": "https://oriabags.github.io/Oria/"}, "cimarron": {"titulo": "Cimarrón", "materia": "Identidad de marca · Mates argentinos", "anio": "2025", "imgs": ["img/cimarron-1.jpg"]}};
 
   var lb = document.getElementById("lb"), img = document.getElementById("lbImg"),
       cap = document.getElementById("lbCap"), enlace = document.getElementById("lbLink"),
@@ -1090,6 +1146,75 @@
     if (Math.abs(dx) > 45) mover(dx < 0 ? 1 : -1);
     x0 = null;
   }, { passive: true });
+})();
+
+/* ── La grilla arma PORTFOLIO al scrollear ──────────────
+   Mide una sola vez donde tiene que terminar cada fragmento
+   y despues solo actualiza --p. Si algo falla, --p queda en 0
+   y la grilla se comporta como siempre.                     */
+(function () {
+  var grilla = document.querySelector(".grid");
+  if (!grilla) return;
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+  var palabras = [].slice.call(grilla.querySelectorAll(".word"));
+  var glifos   = [].slice.call(grilla.querySelectorAll(".art"));
+  if (palabras.length < 2) return;
+
+  var alto = 0;
+
+  function medir() {
+    // limpiar transformaciones para medir la posicion real en reposo
+    palabras.concat(glifos).forEach(function (el) { el.style.setProperty("--dx", "0px"); el.style.setProperty("--dy", "0px"); el.style.setProperty("--gx", "0px"); el.style.setProperty("--gy", "0px"); el.style.setProperty("--gr", "0deg"); });
+    grilla.style.setProperty("--p", 0);
+
+    var g = grilla.getBoundingClientRect();
+    var cajas = palabras.map(function (el) { return el.getBoundingClientRect(); });
+    var ancho = cajas.reduce(function (s, c) { return s + c.width; }, 0);
+
+    // donde arranca la palabra armada, centrada en la grilla
+    var x = g.left + (g.width - ancho) / 2;
+    var y = g.top + g.height / 2;
+
+    palabras.forEach(function (el, i) {
+      var c = cajas[i];
+      el.style.setProperty("--dx", (x - c.left) + "px");
+      el.style.setProperty("--dy", (y - (c.top + c.height / 2)) + "px");
+      x += c.width;
+      // la celda de la palabra tiene que quedar por encima de las de los glifos,
+      // que en el DOM vienen despues y si no la taparian
+      el.parentElement.style.position = "relative";
+      el.parentElement.style.zIndex = "3";
+    });
+
+    // cada glifo se aparta del centro de la grilla
+    var cx = g.left + g.width / 2, cy = g.top + g.height / 2;
+    glifos.forEach(function (el) {
+      var c = el.getBoundingClientRect();
+      var vx = (c.left + c.width / 2) - cx, vy = (c.top + c.height / 2) - cy;
+      var d = Math.hypot(vx, vy) || 1;
+      el.style.setProperty("--gx", (vx / d * 14).toFixed(1) + "px");
+      el.style.setProperty("--gy", (vy / d * 14).toFixed(1) + "px");
+      el.style.setProperty("--gr", (vx < 0 ? -1 : 1) * 24 + "deg");
+    });
+
+    alto = Math.max(1, g.top + window.scrollY);  // recorrido hasta que la grilla toca el borde superior
+  }
+
+  var pedido = false;
+  function actualizar() {
+    pedido = false;
+    var p = Math.min(1, Math.max(0, (window.scrollY / alto) / 0.62));  // termina al 62% del recorrido
+    p = p * p * (3 - 2 * p);                                           // suavizado
+    grilla.style.setProperty("--p", p.toFixed(4));
+  }
+  function alScrollear() { if (!pedido) { pedido = true; requestAnimationFrame(actualizar); } }
+
+  function iniciar() { medir(); actualizar(); }
+
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(iniciar); else iniciar();
+  window.addEventListener("scroll", alScrollear, { passive: true });
+  var t; window.addEventListener("resize", function () { clearTimeout(t); t = setTimeout(iniciar, 150); });
 })();
 </script>
 
