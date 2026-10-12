@@ -183,7 +183,7 @@
     align-items: center;
     gap: 0.9rem;
     padding-bottom: 1.1rem;
-    border-bottom: var(--rule) solid var(--orange);
+    border-bottom: var(--rule-grid) solid var(--grid-line);
     margin-bottom: clamp(2rem, 5vw, 3.5rem);
   }
   .sec-head h2 {
@@ -203,16 +203,199 @@
     color: var(--blue);
   }
 
+  /* Subtitulo dentro de una seccion (ej. Branding dentro de Job experience).
+     Mas liviano que .sec-head: linea fina y tipografia de texto, no display. */
+  .sub-head {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    padding-bottom: 0.55rem;
+    border-bottom: var(--rule-grid) solid var(--grid-line);
+    margin-bottom: clamp(1.2rem, 3vw, 2rem);
+  }
+  .sub-head h3 {
+    font-family: var(--body);
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--orange);
+    line-height: 1;
+  }
+  .sub-head .mark { width: 0.95rem; aspect-ratio: 1; flex: none; }
+  .sub-head .count {
+    margin-left: auto;
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    color: var(--blue);
+  }
+  /* separa un subgrupo del anterior */
+  .sub-grupo { margin-top: clamp(2.5rem, 6vw, 4rem); }
+
+  /* ── Puesto destacado (BlockTXM) ─────────────────── */
+  .puesto { margin-bottom: clamp(1.4rem, 3.5vw, 2.2rem); }
+  .puesto-rol {
+    font-family: var(--display);
+    font-size: clamp(1.3rem, 3.6vw, 2.35rem);
+    line-height: 1.05;
+    color: var(--orange);
+    text-transform: uppercase;
+    margin-bottom: 0.45rem;
+  }
+  .puesto-sub {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem 0.9rem;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--blue);
+  }
+  .puesto-sub .punto { width: 0.3rem; height: 0.3rem; border-radius: 50%; background: var(--amber); }
+
+  /* marco del prototipo */
+  .proto {
+    border: var(--rule-grid) solid var(--grid-line);
+    background: #fff;
+  }
+  .proto-barra {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.5rem 0.8rem;
+    border-bottom: var(--rule-grid) solid var(--grid-line);
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--blue);
+    background: var(--bg);
+  }
+  .proto-barra .vivo {
+    width: 0.4rem; height: 0.4rem; border-radius: 50%;
+    background: var(--green); flex: none;
+  }
+  .proto-barra a { margin-left: auto; color: var(--orange); text-decoration: none; }
+  .proto-barra a:hover, .proto-barra a:focus-visible { text-decoration: underline; }
+  .proto iframe {
+    display: block;
+    width: 100%;
+    height: clamp(380px, 56vw, 660px);
+    border: 0;
+  }
+
+  /* etiqueta de disciplina dentro del puesto */
+  .disciplina {
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+    margin: clamp(1.8rem, 4.5vw, 2.8rem) 0 0.8rem;
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--blue);
+  }
+  .disciplina::after {
+    content: "";
+    flex: 1;
+    height: var(--rule-grid);
+    background: var(--orange);
+    opacity: 0.45;
+  }
+
+  /* ── Carrusel horizontal de videos ───────────────── */
+  .carrusel {
+    display: flex;
+    gap: clamp(0.7rem, 1.8vw, 1.1rem);
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    /* el overflow recorta tambien en vertical: este padding le da lugar
+       a la elevacion y a la sombra del hover. El margen lo compensa. */
+    padding: 20px 18px 46px;
+    margin: -20px -18px -33px;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+    scrollbar-color: var(--orange) transparent;
+  }
+  .carrusel::-webkit-scrollbar { height: 6px; }
+  .carrusel::-webkit-scrollbar-track { background: transparent; }
+  .carrusel::-webkit-scrollbar-thumb { background: var(--orange); }
+
+  .clip {
+    flex: 0 0 auto;
+    width: clamp(205px, 27vw, 325px);
+    scroll-snap-align: start;
+    border: var(--rule-grid) solid var(--grid-line);
+    background: #000;
+    position: relative;
+  }
+  .clip video {
+    display: block;
+    width: 100%;
+    aspect-ratio: 9 / 16;
+    object-fit: cover;
+    background: #000;
+  }
+
+  /* clip en formato A4 vertical (flyers) */
+  .clip.a4 { width: clamp(230px, 30vw, 362px); cursor: zoom-in; }
+  .clip.a4 img {
+    display: block;
+    width: 100%;
+    height: auto;   /* sin esto gana el height del HTML y la imagen se estira */
+    background: #fff;
+  }
+  .clip.a4:hover, .clip.a4:focus-visible { outline: var(--rule) solid var(--blue); outline-offset: 2px; }
+
+  /* ── Vidrieras: fila de alto parejo, el ancho lo da cada foto ──
+     Entra todo a lo ancho en escritorio; en pantallas chicas scrollea. */
+  .vitrina { align-items: flex-start; }
+  .vitrina .clip {
+    width: auto;
+    cursor: zoom-in;
+  }
+  .vitrina .clip img {
+    display: block;
+    height: clamp(205px, 23vw, 332px);
+    width: auto;
+    background: #fff;
+  }
+  /* las dos tomas de vidriera completa van mas grandes que los detalles */
+  .vitrina .clip.grande img { height: clamp(266px, 29.9vw, 430px); }
+
+  .vitrina .clip:hover, .vitrina .clip:focus-visible {
+    outline: var(--rule) solid var(--blue);
+    outline-offset: 2px;
+  }
+
+  /* pieza suelta a lo ancho (video apaisado) */
+  .pieza {
+    border: var(--rule-grid) solid var(--grid-line);
+    background: #000;
+    line-height: 0;
+  }
+  .pieza video {
+    display: block;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    background: #000;
+  }
+
   /* ── Portfolio ──────────────────────────────────── */
   .projects {
     display: grid;
     grid-template-columns: repeat(7, minmax(0, 1fr));
-    border-top: var(--rule) solid var(--orange);
-    border-left: var(--rule) solid var(--orange);
+    border-top: var(--rule-grid) solid var(--grid-line);
+    border-left: var(--rule-grid) solid var(--grid-line);
   }
   .projects > * {
-    border-right: var(--rule) solid var(--orange);
-    border-bottom: var(--rule) solid var(--orange);
+    border-right: var(--rule-grid) solid var(--grid-line);
+    border-bottom: var(--rule-grid) solid var(--grid-line);
   }
 
   .proj {
@@ -221,13 +404,13 @@
     flex-direction: column;
     text-decoration: none;
     cursor: pointer;
-    transition: background 0.2s ease, color 0.2s ease;
+    transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
   }
   .proj-thumb {
     display: block;
     aspect-ratio: 1.414;
     overflow: hidden;
-    border-bottom: var(--rule) solid var(--orange);
+    border-bottom: var(--rule-grid) solid var(--grid-line);
     background: #fff;
   }
   .proj-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
@@ -328,12 +511,12 @@
   .about {
     display: grid;
     grid-template-columns: repeat(7, minmax(0, 1fr));
-    border-top: var(--rule) solid var(--orange);
-    border-left: var(--rule) solid var(--orange);
+    border-top: var(--rule-grid) solid var(--grid-line);
+    border-left: var(--rule-grid) solid var(--grid-line);
   }
   .about > * {
-    border-right: var(--rule) solid var(--orange);
-    border-bottom: var(--rule) solid var(--orange);
+    border-right: var(--rule-grid) solid var(--grid-line);
+    border-bottom: var(--rule-grid) solid var(--grid-line);
   }
 
   .photo {
@@ -443,8 +626,8 @@
   .strip {
     display: grid;
     grid-template-columns: repeat(7, minmax(0, 1fr));
-    border-top: var(--rule) solid var(--orange);
-    border-left: var(--rule) solid var(--orange);
+    border-top: var(--rule-grid) solid var(--grid-line);
+    border-left: var(--rule-grid) solid var(--grid-line);
     margin-top: clamp(2.5rem, 6vw, 4rem);
   }
   .strip .cell { padding: 26%; }
@@ -485,6 +668,34 @@
     .wm-a    { grid-area: 1 / 1; }
     .wm-role { grid-area: 2 / 1; justify-self: center; margin-top: 0.1em; }
     .wm-b    { grid-area: 3 / 1; margin-left: 0; }
+  }
+
+
+  /* ── Hover: la pieza se levanta apenas y proyecta sombra ──
+     Vale para tarjetas de proyecto, flyers y vidrieras.         */
+  .proj, .clip, .proto, .pieza {
+    transition: transform 0.22s ease, box-shadow 0.22s ease,
+                background 0.2s ease, color 0.2s ease, outline-color 0.2s ease;
+  }
+  .proj:hover, .proj:focus-visible,
+  .clip:hover, .clip:focus-visible,
+  .proto:hover, .pieza:hover {
+    transform: translateY(-5px);
+    /* dos capas: una cercana que define el borde y una amplia y muy suave,
+       para que el degradado no corte de golpe */
+    box-shadow: 0 4px 10px rgba(35, 40, 76, 0.14),
+                0 16px 38px rgba(35, 40, 76, 0.20);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .proj:hover, .clip:hover, .proto:hover, .pieza:hover { transform: none; }
+  }
+
+  @media (hover: none) {
+    /* en tactil no hay hover real: que no quede nada levantado */
+    .proj:hover, .clip:hover, .proto:hover, .pieza:hover {
+      transform: none; box-shadow: none;
+    }
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -617,6 +828,158 @@
   </header>
 
   <!-- ═══ GRAPHIC DESIGN ═══ -->
+  <section id="vidrieras">
+    <div class="sec-head">
+      <svg class="mark shape" style="color:var(--green)" aria-hidden="true"><use href="#s-spike-star"/></svg>
+      <h2>Concurso Vidriera Hermès 2026</h2>
+      <span class="count">MENCIÓN ESPECIAL</span>
+    </div>
+
+    <div class="carrusel vitrina">
+      <a class="clip grande" href="img/vidriera-caballo-1.jpg" data-proyecto="vidrieras" data-idx="0">
+        <img src="img/vidriera-caballo-mini.jpg" alt="Vidriera Hermès — caballo de pañuelos" loading="lazy">
+      </a>
+      <a class="clip" href="img/vidriera-paloma-1.jpg" data-proyecto="vidrieras" data-idx="1">
+        <img src="img/vidriera-paloma-mini.jpg" alt="Vidriera Hermès — paloma con pañuelo" loading="lazy">
+      </a>
+      <a class="clip grande" href="img/vidriera-arbol-1.jpg" data-proyecto="vidrieras" data-idx="2">
+        <img src="img/vidriera-arbol-mini.jpg" alt="Vidriera Hermès — árbol y bolsos" loading="lazy">
+      </a>
+      <a class="clip" href="img/vidriera-nido-1.jpg" data-proyecto="vidrieras" data-idx="3">
+        <img src="img/vidriera-nido-mini.jpg" alt="Vidriera Hermès — nido en árbol de mimbre" loading="lazy">
+      </a>
+    </div>
+  </section>
+
+  <section id="trabajo">
+    <div class="sec-head">
+      <svg class="mark shape" style="color:var(--amber)" aria-hidden="true"><use href="#s-scallop-ring"/></svg>
+      <h2>Job experience</h2>
+    </div>
+
+    <div class="puesto">
+      <div class="puesto-rol">AI Content Engineer &amp; Graphic Designer</div>
+      <div class="puesto-sub">
+        <span>BlockTXM</span>
+        <span class="punto"></span>
+        <span>2026 — Present</span>
+      </div>
+    </div>
+
+    <div class="disciplina">UX / UI</div>
+
+    <!-- Prototipo de Figma embebido. Para que lo vea cualquiera, el archivo
+         tiene que estar compartido como "anyone with the link can view". -->
+    <div class="proto">
+      <div class="proto-barra">
+        <span class="vivo"></span>
+        <span>Interactive experience — Luxury FAM trip</span>
+        <a href="https://www.figma.com/proto/a2qpTa5Qwc6FOL0l5NskMi/Luxury-FAM?node-id=0-1" target="_blank" rel="noopener">Open in Figma ↗</a>
+      </div>
+      <iframe
+        src="https://embed.figma.com/proto/a2qpTa5Qwc6FOL0l5NskMi/Luxury-FAM?node-id=0-1&amp;embed-host=lara-marinac-portfolio&amp;footer=false"
+        title="Luxury FAM trip — interactive Figma prototype"
+        loading="lazy"
+        allowfullscreen></iframe>
+    </div>
+
+    <div class="disciplina">Video editing</div>
+
+    <!-- Los videos arrancan solos al entrar en pantalla y se pausan al salir.
+         Siempre mudos. Para sumar otro, copiá un bloque .clip y cambiá
+         el src, el poster y el texto del pie. -->
+    <div class="carrusel">
+      <div class="clip">
+        <video src="vid/workato.mp4" poster="vid/workato-poster.jpg"
+               muted loop playsinline preload="none"
+               aria-label="Today at Workato: flexible talent and pods"></video>
+      </div>
+
+      <div class="clip">
+        <video src="vid/predictive.mp4" poster="vid/predictive-poster.jpg"
+               muted loop playsinline preload="none"
+               aria-label="Predictive maintenance fails on data, not models"></video>
+      </div>
+    </div>
+
+    <div class="disciplina">Presentation design</div>
+
+    <div class="pieza">
+      <video src="vid/regenerative.mp4" poster="vid/regenerative-poster.jpg"
+             muted loop playsinline preload="none"
+             aria-label="Sustainable and Regenerative Costa Rica"></video>
+    </div>
+
+    <div class="disciplina">Flyer design</div>
+
+    <!-- Se abren en grande con el mismo visor que los proyectos. -->
+    <div class="carrusel">
+      <a class="clip a4" href="img/flyer-multicultural-1.jpg" data-proyecto="flyers" data-idx="0">
+        <img src="img/flyer-multicultural-mini.jpg" alt="Costa Rica — Multicultural trips and family vacations" loading="lazy" width="500" height="707">
+      </a>
+      <a class="clip a4" href="img/flyer-adventure-1.jpg" data-proyecto="flyers" data-idx="1">
+        <img src="img/flyer-adventure-mini.jpg" alt="Costa Rica — Life changing experiences" loading="lazy" width="500" height="707">
+      </a>
+    </div>
+
+    <div class="sub-head sub-grupo">
+      <svg class="mark shape" style="color:var(--green)" aria-hidden="true"><use href="#s-daisy"/></svg>
+      <h3>Branding</h3>
+      <span class="count">03 BRANDS</span>
+    </div>
+
+    <div class="projects tercios">
+      <a class="proj" href="img/eighty-eight-1.jpg" data-proyecto="eighty-eight">
+        <span class="proj-thumb"><img src="img/eighty-eight-mini.jpg" alt="Eighty Eight" loading="lazy"></span>
+        <span class="proj-meta">
+          <span class="proj-top">
+            <span class="proj-no">01 — 2025</span>
+            <svg class="proj-icon shape" style="color:var(--green)" aria-hidden="true"><use href="#s-daisy"/></svg>
+          </span>
+          <span>
+            <span class="proj-title">Eighty Eight</span>
+            <span class="proj-tag">IDENTIDAD DE MARCA · ROPA MASCULINA RETRO</span>
+          </span>
+        </span>
+      </a>
+
+      <div class="filler hide-sm"><svg class="art shape" style="color:var(--blue)" aria-hidden="true"><use href="#s-starburst"/></svg></div>
+
+      <a class="proj" href="img/oria-1.jpg" data-proyecto="oria">
+        <span class="proj-thumb"><img src="img/oria-mini.jpg" alt="Oria Bags" loading="lazy"></span>
+        <span class="proj-meta">
+          <span class="proj-top">
+            <span class="proj-no">02 — 2025</span>
+            <svg class="proj-icon shape" style="color:var(--amber)" aria-hidden="true"><use href="#s-sparkle"/></svg>
+          </span>
+          <span>
+            <span class="proj-title">Oria Bags</span>
+            <span class="proj-tag">IDENTIDAD DE MARCA + SITIO WEB · ACCESORIOS</span>
+          </span>
+          <span class="proj-count">SITIO WEB</span>
+        </span>
+      </a>
+
+      <a class="proj" href="img/cimarron-1.jpg" data-proyecto="cimarron">
+        <span class="proj-thumb"><img src="img/cimarron-mini.jpg" alt="Cimarrón" loading="lazy"></span>
+        <span class="proj-meta">
+          <span class="proj-top">
+            <span class="proj-no">03 — 2025</span>
+            <svg class="proj-icon shape" style="color:var(--orange)" aria-hidden="true"><use href="#s-concave-star"/></svg>
+          </span>
+          <span>
+            <span class="proj-title">Cimarrón</span>
+            <span class="proj-tag">IDENTIDAD DE MARCA · MATES ARGENTINOS</span>
+          </span>
+        </span>
+      </a>
+
+      <div class="filler hide-sm"><svg class="art shape" style="color:var(--amber)" aria-hidden="true"><use href="#s-arc"/></svg></div>
+
+      <div class="filler ancho hide-sm"><svg class="art shape" style="color:var(--green)" aria-hidden="true"><use href="#s-scallop"/></svg></div>
+    </div>
+  </section>
+
   <section id="portfolio">
     <div class="sec-head">
       <svg class="mark shape" style="color:var(--green)" aria-hidden="true"><use href="#s-star-6"/></svg>
@@ -896,64 +1259,6 @@
   </section>
 
   <!-- ═══ JOB EXPERIENCE ═══ -->
-  <section id="trabajo">
-    <div class="sec-head">
-      <svg class="mark shape" style="color:var(--amber)" aria-hidden="true"><use href="#s-scallop-ring"/></svg>
-      <h2>Job experience</h2>
-      <span class="count">03 BRANDS</span>
-    </div>
-
-    <div class="projects tercios">
-      <a class="proj" href="img/eighty-eight-1.jpg" data-proyecto="eighty-eight">
-        <span class="proj-thumb"><img src="img/eighty-eight-mini.jpg" alt="Eighty Eight" loading="lazy"></span>
-        <span class="proj-meta">
-          <span class="proj-top">
-            <span class="proj-no">01 — 2025</span>
-            <svg class="proj-icon shape" style="color:var(--green)" aria-hidden="true"><use href="#s-daisy"/></svg>
-          </span>
-          <span>
-            <span class="proj-title">Eighty Eight</span>
-            <span class="proj-tag">IDENTIDAD DE MARCA · ROPA MASCULINA RETRO</span>
-          </span>
-        </span>
-      </a>
-
-      <div class="filler hide-sm"><svg class="art shape" style="color:var(--blue)" aria-hidden="true"><use href="#s-starburst"/></svg></div>
-
-      <a class="proj" href="img/oria-1.jpg" data-proyecto="oria">
-        <span class="proj-thumb"><img src="img/oria-mini.jpg" alt="Oria Bags" loading="lazy"></span>
-        <span class="proj-meta">
-          <span class="proj-top">
-            <span class="proj-no">02 — 2025</span>
-            <svg class="proj-icon shape" style="color:var(--amber)" aria-hidden="true"><use href="#s-sparkle"/></svg>
-          </span>
-          <span>
-            <span class="proj-title">Oria Bags</span>
-            <span class="proj-tag">IDENTIDAD DE MARCA + SITIO WEB · ACCESORIOS</span>
-          </span>
-          <span class="proj-count">SITIO WEB</span>
-        </span>
-      </a>
-
-      <a class="proj" href="img/cimarron-1.jpg" data-proyecto="cimarron">
-        <span class="proj-thumb"><img src="img/cimarron-mini.jpg" alt="Cimarrón" loading="lazy"></span>
-        <span class="proj-meta">
-          <span class="proj-top">
-            <span class="proj-no">03 — 2025</span>
-            <svg class="proj-icon shape" style="color:var(--orange)" aria-hidden="true"><use href="#s-concave-star"/></svg>
-          </span>
-          <span>
-            <span class="proj-title">Cimarrón</span>
-            <span class="proj-tag">IDENTIDAD DE MARCA · MATES ARGENTINOS</span>
-          </span>
-        </span>
-      </a>
-
-      <div class="filler hide-sm"><svg class="art shape" style="color:var(--amber)" aria-hidden="true"><use href="#s-arc"/></svg></div>
-
-      <div class="filler ancho hide-sm"><svg class="art shape" style="color:var(--green)" aria-hidden="true"><use href="#s-scallop"/></svg></div>
-    </div>
-  </section>
 
   <!-- ═══ ABOUT — CAMBIAR: tu bio y tus rubros ═══ -->
   <section id="about">
@@ -1069,7 +1374,7 @@
 <script>
 (function () {
   "use strict";
-  var DATOS = {"labzine-tramas": {"titulo": "Labzine — Fanzine de tramas", "materia": "Laboratorio de Diseño 1", "anio": "2023", "imgs": ["img/labzine-tramas-1.jpg"]}, "di-haus": {"titulo": "Di Haus", "materia": "Laboratorio de Diseño 1", "anio": "2023", "imgs": ["img/di-haus-1.jpg", "img/di-haus-2.jpg"]}, "labzine-grupal": {"titulo": "Labzine — Trama grupal", "materia": "Laboratorio de Diseño 1", "anio": "2023", "imgs": ["img/labzine-grupal-1.jpg"]}, "expo-lab": {"titulo": "Expo Lab", "materia": "Laboratorio de Diseño 2", "anio": "2023", "imgs": ["img/expo-lab-1.jpg", "img/expo-lab-2.jpg"]}, "cultura-deporte": {"titulo": "La cultura del deporte", "materia": "Laboratorio de Diseño 2", "anio": "2023", "imgs": ["img/cultura-deporte-1.jpg", "img/cultura-deporte-2.jpg"]}, "panel-estres": {"titulo": "Panel de estrés", "materia": "Visualización de la Información", "anio": "2025", "imgs": ["img/panel-estres-1.jpg"]}, "exprimidor": {"titulo": "Exprimidor de jugo", "materia": "FAB LAB · Trabajo Práctico 1", "anio": "2024", "imgs": ["img/exprimidor-1.jpg"]}, "mesa-keyshot": {"titulo": "Renderizado de mesa", "materia": "FAB LAB · Rhinoceros + Keyshot", "anio": "2024", "imgs": ["img/mesa-keyshot-1.jpg"]}, "lampara-sizka": {"titulo": "Lámpara Sizka", "materia": "FAB LAB", "anio": "2024", "imgs": ["img/lampara-sizka-1.jpg"]}, "eco-ne": {"titulo": "ECO-NE", "materia": "Laboratorio de Diseño 3", "anio": "2024", "imgs": ["img/eco-ne-1.jpg"]}, "backbone": {"titulo": "Backbone — Biomímesis", "materia": "Laboratorio de Diseño 3", "anio": "2024", "imgs": ["img/backbone-1.jpg"]}, "parasito": {"titulo": "Parásito", "materia": "Laboratorio de Diseño 4", "anio": "2024", "imgs": ["img/parasito-1.jpg"]}, "ice-ride": {"titulo": "Ice-Ride — Refill", "materia": "Laboratorio de Diseño 4", "anio": "2024", "imgs": ["img/ice-ride-1.jpg"]}, "geolino-um": {"titulo": "Geolingum", "materia": "Ingeniería de los Materiales", "anio": "2024", "imgs": ["img/geolino-um-1.jpg"]}, "rosedal": {"titulo": "Sintonía del Rosedal", "materia": "Laboratorio de Diseño 4", "anio": "2024", "imgs": ["img/rosedal-1.jpg"]}, "el-contrabando": {"titulo": "El Contrabando", "materia": "Laboratorio de Diseño 6", "anio": "2026", "imgs": ["img/el-contrabando-1.jpg"]}, "silla-a-comoda": {"titulo": "Silla A-Cómoda", "materia": "Diseño de Mobiliario Modular · Trabajo Práctico Final", "anio": "2026", "imgs": ["img/silla-a-comoda-1.jpg"]},"eighty-eight": {"titulo": "Eighty Eight", "materia": "Identidad de marca · Ropa masculina retro", "anio": "2025", "imgs": ["img/eighty-eight-1.jpg"]}, "oria": {"titulo": "Oria Bags", "materia": "Identidad de marca + sitio web · Accesorios", "anio": "2025", "imgs": ["img/oria-1.jpg"], "url": "https://oriabags.github.io/Oria/"}, "cimarron": {"titulo": "Cimarrón", "materia": "Identidad de marca · Mates argentinos", "anio": "2025", "imgs": ["img/cimarron-1.jpg"]}};
+  var DATOS = {"labzine-tramas": {"titulo": "Labzine — Fanzine de tramas", "materia": "Laboratorio de Diseño 1", "anio": "2023", "imgs": ["img/labzine-tramas-1.jpg"]}, "di-haus": {"titulo": "Di Haus", "materia": "Laboratorio de Diseño 1", "anio": "2023", "imgs": ["img/di-haus-1.jpg", "img/di-haus-2.jpg"]}, "labzine-grupal": {"titulo": "Labzine — Trama grupal", "materia": "Laboratorio de Diseño 1", "anio": "2023", "imgs": ["img/labzine-grupal-1.jpg"]}, "expo-lab": {"titulo": "Expo Lab", "materia": "Laboratorio de Diseño 2", "anio": "2023", "imgs": ["img/expo-lab-1.jpg", "img/expo-lab-2.jpg"]}, "cultura-deporte": {"titulo": "La cultura del deporte", "materia": "Laboratorio de Diseño 2", "anio": "2023", "imgs": ["img/cultura-deporte-1.jpg", "img/cultura-deporte-2.jpg"]}, "panel-estres": {"titulo": "Panel de estrés", "materia": "Visualización de la Información", "anio": "2025", "imgs": ["img/panel-estres-1.jpg"]}, "exprimidor": {"titulo": "Exprimidor de jugo", "materia": "FAB LAB · Trabajo Práctico 1", "anio": "2024", "imgs": ["img/exprimidor-1.jpg"]}, "mesa-keyshot": {"titulo": "Renderizado de mesa", "materia": "FAB LAB · Rhinoceros + Keyshot", "anio": "2024", "imgs": ["img/mesa-keyshot-1.jpg"]}, "lampara-sizka": {"titulo": "Lámpara Sizka", "materia": "FAB LAB", "anio": "2024", "imgs": ["img/lampara-sizka-1.jpg"]}, "eco-ne": {"titulo": "ECO-NE", "materia": "Laboratorio de Diseño 3", "anio": "2024", "imgs": ["img/eco-ne-1.jpg"]}, "backbone": {"titulo": "Backbone — Biomímesis", "materia": "Laboratorio de Diseño 3", "anio": "2024", "imgs": ["img/backbone-1.jpg"]}, "parasito": {"titulo": "Parásito", "materia": "Laboratorio de Diseño 4", "anio": "2024", "imgs": ["img/parasito-1.jpg"]}, "ice-ride": {"titulo": "Ice-Ride — Refill", "materia": "Laboratorio de Diseño 4", "anio": "2024", "imgs": ["img/ice-ride-1.jpg"]}, "geolino-um": {"titulo": "Geolingum", "materia": "Ingeniería de los Materiales", "anio": "2024", "imgs": ["img/geolino-um-1.jpg"]}, "rosedal": {"titulo": "Sintonía del Rosedal", "materia": "Laboratorio de Diseño 4", "anio": "2024", "imgs": ["img/rosedal-1.jpg"]}, "el-contrabando": {"titulo": "El Contrabando", "materia": "Laboratorio de Diseño 6", "anio": "2026", "imgs": ["img/el-contrabando-1.jpg"]}, "silla-a-comoda": {"titulo": "Silla A-Cómoda", "materia": "Diseño de Mobiliario Modular · Trabajo Práctico Final", "anio": "2026", "imgs": ["img/silla-a-comoda-1.jpg"]},"eighty-eight": {"titulo": "Eighty Eight", "materia": "Identidad de marca · Ropa masculina retro", "anio": "2025", "imgs": ["img/eighty-eight-1.jpg"]}, "oria": {"titulo": "Oria Bags", "materia": "Identidad de marca + sitio web · Accesorios", "anio": "2025", "imgs": ["img/oria-1.jpg"], "url": "https://oriabags.github.io/Oria/"}, "vidrieras": {"titulo": "Concurso Vidriera Herm\u00e8s", "materia": "Menci\u00f3n especial", "anio": "2026", "imgs": ["img/vidriera-caballo-1.jpg", "img/vidriera-paloma-1.jpg", "img/vidriera-arbol-1.jpg", "img/vidriera-nido-1.jpg"]}, "flyers": {"titulo": "Costa Rica \u2014 Travel XM", "materia": "Flyer design", "anio": "2026", "imgs": ["img/flyer-multicultural-1.jpg", "img/flyer-adventure-1.jpg"]}, "cimarron": {"titulo": "Cimarrón", "materia": "Identidad de marca · Mates argentinos", "anio": "2025", "imgs": ["img/cimarron-1.jpg"]}};
 
   var lb = document.getElementById("lb"), img = document.getElementById("lbImg"),
       cap = document.getElementById("lbCap"), enlace = document.getElementById("lbLink"),
@@ -1117,8 +1422,8 @@
     pintar();
   }
 
-  document.querySelectorAll(".proj[data-proyecto]").forEach(function (a) {
-    a.addEventListener("click", function (e) { e.preventDefault(); abrir(a.dataset.proyecto, 0); });
+  document.querySelectorAll("[data-proyecto]").forEach(function (a) {
+    a.addEventListener("click", function (e) { e.preventDefault(); abrir(a.dataset.proyecto, +(a.dataset.idx || 0)); });
   });
 
   bCerrar.addEventListener("click", function () { cerrar(false); });
@@ -1215,6 +1520,38 @@
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(iniciar); else iniciar();
   window.addEventListener("scroll", alScrollear, { passive: true });
   var t; window.addEventListener("resize", function () { clearTimeout(t); t = setTimeout(iniciar, 150); });
+})();
+
+/* ── Los videos del carrusel se reproducen solos al entrar en pantalla ──
+   Siempre mudos. Se pausan al salir para no gastar bateria ni datos.    */
+(function () {
+  var clips = [].slice.call(document.querySelectorAll(".carrusel video, .pieza video"));
+  if (!clips.length) return;
+
+  // si el visitante pidio menos movimiento, quedan quietos en su poster
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    clips.forEach(function (v) { v.controls = true; v.preload = "metadata"; });
+    return;
+  }
+  if (!("IntersectionObserver" in window)) {
+    clips.forEach(function (v) { v.controls = true; });
+    return;
+  }
+
+  var obs = new IntersectionObserver(function (entradas) {
+    entradas.forEach(function (e) {
+      var v = e.target;
+      if (e.isIntersecting) {
+        v.muted = true;                     // algunos navegadores exigen la propiedad, no solo el atributo
+        var pr = v.play();
+        if (pr && pr.catch) pr.catch(function () { v.controls = true; });  // si el navegador lo bloquea, mostrar controles
+      } else if (!v.paused) {
+        v.pause();
+      }
+    });
+  }, { threshold: 0.5 });
+
+  clips.forEach(function (v) { obs.observe(v); });
 })();
 </script>
 
